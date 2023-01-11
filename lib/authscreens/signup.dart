@@ -7,27 +7,40 @@ import 'package:mybankapp/routscreens/routwidget.dart';
 import 'package:mybankapp/textfontfamily/textfontfamily.dart';
 import 'package:mybankapp/welcomescreen/welcomescreen.dart';
 
-class SignUpScreen extends StatelessWidget {
-  const SignUpScreen({Key? key}) : super(key: key);
+class SignUpScreen extends StatefulWidget {
+  @override
+  _SignUpScreenState createState() => _SignUpScreenState();
+}
+
+class _SignUpScreenState extends State<SignUpScreen> {
+  final _formKey = GlobalKey<FormState>();
+  late String _name;
+  late String _phoneNumber = '';
+  late String _password;
+  late String _confirmPassword;
+  final bool _isLoading = false;
 
   Text text(String text) {
     return Text(
       text,
       style: TextStyle(
-        fontSize: 15,
+        fontSize: 10,
         fontFamily: TextFontFamily.helveticaNeueCyrRoman,
         color: ColorResources.white,
       ),
     );
   }
 
-  TextFormField textFormField(String hint) {
+  TextFormField textFormField(String hint, String? Function(String?) validator,
+      void Function(String?) onSaved,
+      {bool obscureText = false}) {
     return TextFormField(
       style: TextStyle(
         fontFamily: TextFontFamily.helveticaNeueCyrRoman,
         fontSize: 13,
         color: ColorResources.grey2,
       ),
+      obscureText: obscureText,
       cursorColor: ColorResources.blue1,
       decoration: InputDecoration(
         filled: true,
@@ -68,8 +81,14 @@ class SignUpScreen extends StatelessWidget {
           ),
         ),
       ),
+      validator: validator,
+      onSaved: onSaved,
     );
   }
+
+  // phone number validation
+  // ignore: valid_regexps
+  final _phoneNumberRegExp = RegExp(r'^(?:[+0]9)?[0-9]{10}$');
 
   @override
   Widget build(BuildContext context) {
@@ -100,57 +119,103 @@ class SignUpScreen extends StatelessWidget {
               ),
               SizedBox(height: 7),
               Text(
-                "Open a MyBank account with a few details.",
+                "Open a Noble Bank account with a few details.",
                 style: TextStyle(
                     fontFamily: TextFontFamily.helveticaNeueCyrRoman,
                     fontSize: 15,
                     color: ColorResources.white1),
               ),
-              SizedBox(height: 45),
-              text("Full name"),
-              SizedBox(height: 10),
-              textFormField("John Doe"),
-              SizedBox(height: 20),
-              text("Phone number"),
-              SizedBox(height: 10),
-              textFormField("+ 234 808 762 1236"),
-              SizedBox(height: 20),
-              text("Password"),
-              SizedBox(height: 10),
-              textFormField("*********"),
-              SizedBox(height: 20),
-              text("Repeat password"),
-              SizedBox(height: 10),
-              textFormField("*********"),
-              SizedBox(height: Get.height >= 876 ? 150 : 50),
-              InkWell(
-                onTap: () {
-                  Get.off(NavigationBarBottom());
-                },
-                child: Container(
-                  height: 50,
-                  width: Get.width,
-                  decoration: BoxDecoration(
-                    color: ColorResources.red,
-                    borderRadius: BorderRadius.circular(10),
-                  ),
-                  child: Center(
-                    child: Text(
-                      "CREATE YOUR FREE ACCOUNT",
-                      style: TextStyle(
-                          fontFamily: TextFontFamily.helveticaNeueCyrRoman,
-                          fontWeight: FontWeight.w700,
-                          fontSize: 13.5,
-                          color: ColorResources.white),
-                    ),
-                  ),
+              SizedBox(height: 40),
+              Form(
+                key: _formKey,
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    text("Full name"),
+                    SizedBox(height: 10),
+                    textFormField("", (value) {
+                      if (value!.isEmpty) {
+                        return "Please enter your name";
+                      }
+                      return null;
+                    }, (value) {
+                      _name = value!;
+                    }),
+                    SizedBox(height: 20),
+                    text("Phone number"),
+                    SizedBox(height: 10),
+                    textFormField("", (value) {
+                      if (!_phoneNumberRegExp.hasMatch(value!)) {
+                        return "Please enter your phone number";
+                      }
+                      return null;
+                    }, (value) {
+                      _phoneNumber = value!;
+                    }),
+                    SizedBox(height: 20),
+                    text("Password"),
+                    SizedBox(height: 10),
+                    textFormField("", (value) {
+                      if (value!.isEmpty) {
+                        return "Please enter your password";
+                      } else if (value.length < 8) {
+                        return "Password must be at least 8 characters long";
+                      }
+                      return null;
+                    }, (value) {
+                      _password = value!;
+                    }, obscureText: true),
+                    SizedBox(height: 20),
+                    text("Repeat password"),
+                    SizedBox(height: 10),
+                    textFormField("", (value) {
+                      if (value!.isEmpty) {
+                        return "Please enter your password";
+                      } else if (value != _password) {
+                        return "Password doesn't match";
+                      }
+                      return null;
+                    }, (value) {
+                      _confirmPassword = value!;
+                    }, obscureText: true),
+                  ],
                 ),
               ),
+              SizedBox(height: Get.height >= 876 ? 150 : 50),
+              _isLoading
+                  ? CircularProgressIndicator()
+                  : SizedBox(
+                      width: double.infinity,
+                      child: InkWell(
+                        onTap: () {
+                          Get.off(NavigationBarBottom());
+                        },
+                        child: Container(
+                          height: 50,
+                          width: Get.width,
+                          decoration: BoxDecoration(
+                            color: ColorResources.red,
+                            borderRadius: BorderRadius.circular(10),
+                          ),
+                          child: Center(
+                            child: Text(
+                              "CREATE YOUR FREE ACCOUNT",
+                              style: TextStyle(
+                                  fontFamily:
+                                      TextFontFamily.helveticaNeueCyrRoman,
+                                  fontWeight: FontWeight.w700,
+                                  fontSize: 13.5,
+                                  color: ColorResources.white),
+                            ),
+                          ),
+                        ),
+                      ),
+                    ),
               SizedBox(height: 20),
               Center(
                 child: RichText(
                   text: TextSpan(
-                    text: "Do you already have a MyBank account?",
+                    text: "Do you already have a Noble Bank account?",
                     style: TextStyle(
                       fontSize: 13.5,
                       fontWeight: FontWeight.w300,

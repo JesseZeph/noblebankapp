@@ -297,9 +297,8 @@ class LogInScreen extends StatelessWidget {
                                                       Builder(
                                                         builder: (context) {
                                                           return Padding(
-                                                            padding:
-                                                                 EdgeInsets
-                                                                        .symmetric(
+                                                            padding: EdgeInsets
+                                                                .symmetric(
                                                                     horizontal:
                                                                         45),
                                                             child: PinPut(
@@ -397,14 +396,19 @@ class LogInScreen extends StatelessWidget {
                                                         onTap: () {
                                                           Get.bottomSheet(
                                                             Padding(
-                                                              padding: const EdgeInsets.only(top: 170),
-                                                              child: SingleChildScrollView(
+                                                              padding:
+                                                                  const EdgeInsets
+                                                                          .only(
+                                                                      top: 170),
+                                                              child:
+                                                                  SingleChildScrollView(
                                                                 physics:
                                                                     NeverScrollableScrollPhysics(),
                                                                 child: Column(
                                                                   children: [
                                                                     InkWell(
-                                                                      onTap: () {
+                                                                      onTap:
+                                                                          () {
                                                                         Get.back();
                                                                       },
                                                                       child:
@@ -412,10 +416,10 @@ class LogInScreen extends StatelessWidget {
                                                                         radius:
                                                                             20,
                                                                         backgroundColor:
-                                                                            ColorResources
-                                                                                .white,
+                                                                            ColorResources.white,
                                                                         child: Icon(
-                                                                            Icons.close,
+                                                                            Icons
+                                                                                .close,
                                                                             color:
                                                                                 ColorResources.backGroundColor),
                                                                       ),
@@ -424,13 +428,14 @@ class LogInScreen extends StatelessWidget {
                                                                         height:
                                                                             15),
                                                                     Container(
-                                                                      height: Get.height,
-                                                                      width: Get.width,
+                                                                      height: Get
+                                                                          .height,
+                                                                      width: Get
+                                                                          .width,
                                                                       decoration:
                                                                           BoxDecoration(
                                                                         borderRadius:
-                                                                            BorderRadius
-                                                                                .only(
+                                                                            BorderRadius.only(
                                                                           topLeft:
                                                                               Radius.circular(40),
                                                                           topRight:
@@ -441,8 +446,7 @@ class LogInScreen extends StatelessWidget {
                                                                       ),
                                                                       child:
                                                                           Padding(
-                                                                        padding: const EdgeInsets
-                                                                                .symmetric(
+                                                                        padding: const EdgeInsets.symmetric(
                                                                             horizontal:
                                                                                 15,
                                                                             vertical:
@@ -453,8 +457,7 @@ class LogInScreen extends StatelessWidget {
                                                                               CrossAxisAlignment.start,
                                                                           children: [
                                                                             Center(
-                                                                              child:
-                                                                                  Container(
+                                                                              child: Container(
                                                                                 height: 6,
                                                                                 width: 60,
                                                                                 decoration: BoxDecoration(
@@ -463,51 +466,34 @@ class LogInScreen extends StatelessWidget {
                                                                                 ),
                                                                               ),
                                                                             ),
-                                                                            SizedBox(
-                                                                                height: 30),
+                                                                            SizedBox(height: 30),
                                                                             Text(
                                                                               "Recover password",
-                                                                              style: TextStyle(
-                                                                                  fontFamily: TextFontFamily.helveticNeueCyrBold,
-                                                                                  fontSize: 35,
-                                                                                  color: ColorResources.red),
+                                                                              style: TextStyle(fontFamily: TextFontFamily.helveticNeueCyrBold, fontSize: 35, color: ColorResources.red),
                                                                             ),
-                                                                            SizedBox(
-                                                                                height: 8),
+                                                                            SizedBox(height: 8),
                                                                             Text(
                                                                               "Please enter your new password to continue",
-                                                                              style: TextStyle(
-                                                                                  fontFamily: TextFontFamily.helveticaNeueCyrRoman,
-                                                                                  fontSize: 15,
-                                                                                  color: ColorResources.white1),
+                                                                              style: TextStyle(fontFamily: TextFontFamily.helveticaNeueCyrRoman, fontSize: 15, color: ColorResources.white1),
                                                                             ),
                                                                             // SizedBox(
                                                                             //     height: Get.height >= 876 ? 70 : 50),
                                                                             SizedBox(height: 55),
-                                                                            text(
-                                                                                "New Password"),
-                                                                            SizedBox(
-                                                                                height: 9),
-                                                                            textFormField(
-                                                                                "*********"),
-                                                                            SizedBox(
-                                                                                height: 22),
-                                                                            text(
-                                                                                "Confirm Password"),
-                                                                            SizedBox(
-                                                                                height: 9),
-                                                                            textFormField(
-                                                                                "*********"),
+                                                                            text("New Password"),
+                                                                            SizedBox(height: 9),
+                                                                            textFormField("*********"),
+                                                                            SizedBox(height: 22),
+                                                                            text("Confirm Password"),
+                                                                            SizedBox(height: 9),
+                                                                            textFormField("*********"),
                                                                             // SizedBox(
                                                                             //     height: Get.height >= 876 ? 40 : 20),
-                                                                            SizedBox(height:85),
+                                                                            SizedBox(height: 85),
                                                                             InkWell(
-                                                                              onTap:
-                                                                                  () {
+                                                                              onTap: () {
                                                                                 Get.off(NavigationBarBottom());
                                                                               },
-                                                                              child:
-                                                                                  Container(
+                                                                              child: Container(
                                                                                 height: 50,
                                                                                 width: Get.width,
                                                                                 decoration: BoxDecoration(
@@ -534,7 +520,8 @@ class LogInScreen extends StatelessWidget {
                                                             backgroundColor:
                                                                 Colors
                                                                     .transparent,
-                                                            isScrollControlled: true,
+                                                            isScrollControlled:
+                                                                true,
                                                           );
                                                         },
                                                         child: Container(
