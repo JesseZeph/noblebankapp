@@ -15,7 +15,7 @@ class SignUpScreen extends StatefulWidget {
 class _SignUpScreenState extends State<SignUpScreen> {
   final _formKey = GlobalKey<FormState>();
   late String _name;
-  late String _phoneNumber = '';
+  late String _emailAddress = '';
   late String _password;
   late String _confirmPassword;
   final bool _isLoading = false;
@@ -86,9 +86,9 @@ class _SignUpScreenState extends State<SignUpScreen> {
     );
   }
 
-  // phone number validation
+  // phone emailAddress validation
   // ignore: valid_regexps
-  final _phoneNumberRegExp = RegExp(r'^(?:[+0]9)?[0-9]{10}$');
+  final _emailAddressRegExp = RegExp(r'^.+@[a-zA-Z]+\.{1}[a-zA-Z]+(\.{0,1}[a-zA-Z]+)$');
 
   @override
   Widget build(BuildContext context) {
@@ -142,15 +142,15 @@ class _SignUpScreenState extends State<SignUpScreen> {
                       _name = value!;
                     }),
                     SizedBox(height: 20),
-                    text("Phone number"),
+                    text("Email Address"),
                     SizedBox(height: 10),
                     textFormField("", (value) {
-                      if (!_phoneNumberRegExp.hasMatch(value!)) {
-                        return "Please enter your phone number";
+                      if (!_emailAddressRegExp.hasMatch(value!)) {
+                        return "Please enter your email address";
                       }
                       return null;
                     }, (value) {
-                      _phoneNumber = value!;
+                      _emailAddress = value!;
                     }),
                     SizedBox(height: 20),
                     text("Password"),

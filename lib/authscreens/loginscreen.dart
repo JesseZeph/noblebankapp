@@ -119,9 +119,9 @@ class LogInScreen extends StatelessWidget {
                     color: ColorResources.white1),
               ),
               SizedBox(height: 50),
-              text("Phone number"),
+              text("Email Address"),
               SizedBox(height: 10),
-              textFormField("+ 234 808 762 1236"),
+              textFormField("johndoe@mail.com"),
               SizedBox(height: 20),
               text("Password"),
               SizedBox(height: 10),
@@ -191,7 +191,7 @@ class LogInScreen extends StatelessWidget {
                                   ),
                                   SizedBox(height: 15),
                                   Text(
-                                    "Please enter your phone number to recover your password.",
+                                    "Please enter your email address to recover your password.",
                                     style: TextStyle(
                                         fontFamily: TextFontFamily
                                             .helveticaNeueCyrRoman,
@@ -199,9 +199,9 @@ class LogInScreen extends StatelessWidget {
                                         color: ColorResources.white1),
                                   ),
                                   SizedBox(height: 30),
-                                  text("Phone number"),
+                                  text("Email Address"),
                                   SizedBox(height: 10),
-                                  textFormField("+ 234 808 762 1236"),
+                                  textFormField("johndoe@gmail,com"),
                                   SizedBox(
                                       height: Get.height >= 876 ? 100 : 40),
                                   InkWell(
@@ -279,7 +279,7 @@ class LogInScreen extends StatelessWidget {
                                                       ),
                                                       SizedBox(height: 15),
                                                       Text(
-                                                        "Please enter the CODE sent to your phone number in the boxes below.",
+                                                        "Please enter the CODE sent to your email address in the boxes below.",
                                                         style: TextStyle(
                                                             fontFamily:
                                                                 TextFontFamily
