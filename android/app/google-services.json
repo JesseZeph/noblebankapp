@@ -1,0 +1,46 @@
+{
+  "project_info": {
+    "project_number": "525412561327",
+    "project_id": "noble-bank-64cd0",
+    "storage_bucket": "noble-bank-64cd0.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:525412561327:android:790ac97c921e2469797f5a",
+        "android_client_info": {
+          "package_name": "com.example.mybankapp"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "525412561327-tck6qvk9g6e6kh4qvc17skiit361rueb.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyAjpKlx5L2HwV0I5Z28G5cLjagFZWEtaJ4"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "525412561327-tck6qvk9g6e6kh4qvc17skiit361rueb.apps.googleusercontent.com",
+              "client_type": 3
+            },
+            {
+              "client_id": "525412561327-qts86tu3c6h4de4qkovb5hh6iurc5p6d.apps.googleusercontent.com",
+              "client_type": 2,
+              "ios_info": {
+                "bundle_id": "com.example.mybankapp"
+              }
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
