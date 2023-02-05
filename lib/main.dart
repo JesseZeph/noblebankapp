@@ -1,9 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:get/get.dart';
 import 'package:mybankapp/firebase_options.dart';
-import 'package:mybankapp/splashscreen/splashscreen.dart';
 import 'package:firebase_core/firebase_core.dart';
+
+import 'routes/routes.dart';
 
 void main() async {
   SystemChrome.setSystemUIOverlayStyle(const SystemUiOverlayStyle(
@@ -16,17 +18,21 @@ void main() async {
   await Firebase.initializeApp(
     options: DefaultFirebaseOptions.currentPlatform,
   );
-  runApp(const MyBankApp());
+  runApp(ProviderScope(child: const MyBankApp()));
 }
 
-class MyBankApp extends StatelessWidget {
+class MyBankApp extends ConsumerWidget {
   const MyBankApp({Key? key}) : super(key: key);
 
   @override
-  Widget build(BuildContext context) {
-    return GetMaterialApp(
+  Widget build(BuildContext context, WidgetRef ref) {
+    final router = ref.watch(routerProvider);
+    return GetMaterialApp.router(
       debugShowCheckedModeBanner: false,
-      home: SplashScreen(),
+      routeInformationParser: router.routeInformationParser,
+      routeInformationProvider: router.routeInformationProvider,
+      routerDelegate: router.routerDelegate,
+      // home: SplashScreen(),
     );
   }
 }

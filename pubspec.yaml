@@ -38,6 +38,8 @@ dependencies:
   flutter_svg: ^0.22.0
   pinput: ^1.2.2
   firebase_core: ^2.4.1
+  flutter_riverpod: ^2.1.3
+  go_router: ^6.0.3
 
 dev_dependencies:
   flutter_test:
