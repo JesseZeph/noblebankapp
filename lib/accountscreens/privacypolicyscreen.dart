@@ -1,8 +1,11 @@
 import 'package:flutter/material.dart';
-import 'package:get/get.dart';
-import 'package:mybankapp/colors/colors.dart';
-import 'package:mybankapp/routscreens/routwidget.dart';
-import 'package:mybankapp/textfontfamily/textfontfamily.dart';
+import 'package:go_router/go_router.dart';
+// import 'package:get/get.dart';
+import '../colors/colors.dart';
+import '../routscreens/routwidget.dart';
+import '../textfontfamily/textfontfamily.dart';
+
+import '../routes/route_names.dart';
 
 class PrivacyPolicyScreen extends StatelessWidget {
   const PrivacyPolicyScreen({Key? key}) : super(key: key);
@@ -19,6 +22,7 @@ class PrivacyPolicyScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final Size size = MediaQuery.of(context).size;
     return Scaffold(
       backgroundColor: ColorResources.backGroundColor,
       appBar: AppBar(
@@ -28,10 +32,11 @@ class PrivacyPolicyScreen extends StatelessWidget {
         leading: InkWell(
             onTap: () {
               selectedIndex = 4;
-              Navigator.of(context, rootNavigator: true)
-                  .pushReplacement(MaterialPageRoute(
-                builder: (context) => NavigationBarBottom(),
-              ));
+              context.goNamed(RouteName.buttombar);
+              // Navigator.of(context, rootNavigator: true)
+              //     .pushReplacement(MaterialPageRoute(
+              //   builder: (context) => NavigationBarBottom(),
+              // ));
             },
             child: Icon(Icons.arrow_back_ios,
                 color: ColorResources.white, size: 15)),
@@ -49,8 +54,8 @@ class PrivacyPolicyScreen extends StatelessWidget {
             padding:
                 const EdgeInsets.only(left: 15, right: 15, top: 50, bottom: 10),
             child: Container(
-              height: Get.height,
-              width: Get.width,
+              height: size.height,
+              width: size.width,
               color: ColorResources.backGroundColor,
               child: SingleChildScrollView(
                 child: Column(
@@ -107,12 +112,10 @@ class PrivacyPolicyScreen extends StatelessWidget {
               mainAxisSize: MainAxisSize.min,
               children: [
                 InkWell(
-                  onTap : (){
-                    Get.back();
-                  },
+                  onTap: () => Navigator.of(context).pop(),
                   child: Container(
                     height: 50,
-                    width: Get.width,
+                    width: size.width,
                     decoration: BoxDecoration(
                       color: ColorResources.red,
                       borderRadius: BorderRadius.circular(10),
@@ -130,12 +133,10 @@ class PrivacyPolicyScreen extends StatelessWidget {
                 ),
                 SizedBox(height: 20),
                 InkWell(
-                  onTap : (){
-                    Get.back();
-                  },
+                  onTap: () => Navigator.of(context).pop(),
                   child: Container(
                     height: 50,
-                    width: Get.width,
+                    width: size.width,
                     decoration: BoxDecoration(
                       color: ColorResources.white,
                       borderRadius: BorderRadius.circular(10),

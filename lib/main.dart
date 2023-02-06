@@ -1,11 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:get/get.dart';
-import 'package:mybankapp/firebase_options.dart';
+// import 'package:get/get.dart';
+import '../firebase_options.dart';
 import 'package:firebase_core/firebase_core.dart';
 
-import 'routes/routes.dart';
+import './routes/routes.dart';
 
 void main() async {
   SystemChrome.setSystemUIOverlayStyle(const SystemUiOverlayStyle(
@@ -27,7 +27,7 @@ class MyBankApp extends ConsumerWidget {
   @override
   Widget build(BuildContext context, WidgetRef ref) {
     final router = ref.watch(routerProvider);
-    return GetMaterialApp.router(
+    return MaterialApp.router(
       debugShowCheckedModeBanner: false,
       routeInformationParser: router.routeInformationParser,
       routeInformationProvider: router.routeInformationProvider,

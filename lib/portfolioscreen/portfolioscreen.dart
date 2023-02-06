@@ -1,8 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
-import 'package:mybankapp/colors/colors.dart';
-import 'package:mybankapp/images/images.dart';
-import 'package:mybankapp/textfontfamily/textfontfamily.dart';
+
+import '../colors/colors.dart';
+import '../images/images.dart';
+import '../textfontfamily/textfontfamily.dart';
 
 class PortFolioScreen extends StatelessWidget {
   const PortFolioScreen({Key? key}) : super(key: key);

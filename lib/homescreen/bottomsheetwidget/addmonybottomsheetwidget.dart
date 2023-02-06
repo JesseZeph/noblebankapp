@@ -1,10 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
-import 'package:get/get.dart';
-import 'package:mybankapp/colors/colors.dart';
-import 'package:mybankapp/homescreen/savemonydetailsscreens/saveaddmoneydetailsscreen.dart';
-import 'package:mybankapp/images/images.dart';
-import 'package:mybankapp/textfontfamily/textfontfamily.dart';
+import 'package:go_router/go_router.dart';
+
+import '../../colors/colors.dart';
+import '../../images/images.dart';
+import '../../routes/route_names.dart';
+import '../../textfontfamily/textfontfamily.dart';
 
 class AddMoneyBottomSheetWidget extends StatefulWidget {
   AddMoneyBottomSheetWidget({Key? key}) : super(key: key);
@@ -33,6 +34,7 @@ class _AddMoneyBottomSheetWidgetState extends State<AddMoneyBottomSheetWidget> {
 
   @override
   Widget build(BuildContext context) {
+    final Size size = MediaQuery.of(context).size;
     return SingleChildScrollView(
       physics: NeverScrollableScrollPhysics(),
       child: Padding(
@@ -40,9 +42,7 @@ class _AddMoneyBottomSheetWidgetState extends State<AddMoneyBottomSheetWidget> {
         child: Column(
           children: [
             InkWell(
-              onTap: () {
-                Get.back();
-              },
+              onTap: () => Navigator.of(context).pop(),
               child: CircleAvatar(
                 radius: 20,
                 backgroundColor: ColorResources.white,
@@ -51,8 +51,8 @@ class _AddMoneyBottomSheetWidgetState extends State<AddMoneyBottomSheetWidget> {
             ),
             SizedBox(height: 15),
             Container(
-              height: Get.height,
-              width: Get.width,
+              height: size.height,
+              width: size.width,
               decoration: BoxDecoration(
                 borderRadius: BorderRadius.only(
                   topLeft: Radius.circular(40),
@@ -87,7 +87,7 @@ class _AddMoneyBottomSheetWidgetState extends State<AddMoneyBottomSheetWidget> {
                           fontSize: 54,
                           color: ColorResources.white4),
                     ),
-                    SizedBox(height: Get.height >= 876 ? 85 : 45),
+                    SizedBox(height: size.height >= 876 ? 85 : 45),
                     Row(
                       mainAxisAlignment: MainAxisAlignment.spaceBetween,
                       children: [
@@ -108,7 +108,7 @@ class _AddMoneyBottomSheetWidgetState extends State<AddMoneyBottomSheetWidget> {
                         }),
                       ],
                     ),
-                    SizedBox(height: Get.height >= 876 ? 60 : 45),
+                    SizedBox(height: size.height >= 876 ? 60 : 45),
                     Row(
                       mainAxisAlignment: MainAxisAlignment.spaceBetween,
                       children: [
@@ -129,7 +129,7 @@ class _AddMoneyBottomSheetWidgetState extends State<AddMoneyBottomSheetWidget> {
                         }),
                       ],
                     ),
-                    SizedBox(height: Get.height >= 876 ? 60 : 45),
+                    SizedBox(height: size.height >= 876 ? 60 : 45),
                     Row(
                       mainAxisAlignment: MainAxisAlignment.spaceBetween,
                       children: [
@@ -150,7 +150,7 @@ class _AddMoneyBottomSheetWidgetState extends State<AddMoneyBottomSheetWidget> {
                         }),
                       ],
                     ),
-                    SizedBox(height: Get.height >= 876 ? 60 : 45),
+                    SizedBox(height: size.height >= 876 ? 60 : 45),
                     Row(
                       mainAxisAlignment: MainAxisAlignment.spaceBetween,
                       children: [
@@ -177,11 +177,9 @@ class _AddMoneyBottomSheetWidgetState extends State<AddMoneyBottomSheetWidget> {
                         ),
                       ],
                     ),
-                    SizedBox(height: Get.height >= 876 ? 60 : 45),
+                    SizedBox(height: size.height >= 876 ? 60 : 45),
                     InkWell(
-                      onTap: () {
-                        Get.off(SaveAddMoneyDetailsScreen());
-                      },
+                      onTap: () =>context.goNamed(RouteName.saveDetailScreen),
                       child: Container(
                         height: 50,
                         width: 170,

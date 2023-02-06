@@ -1,15 +1,17 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
-import 'package:get/get.dart';
-import 'package:mybankapp/accountscreens/accountscreen.dart';
-import 'package:mybankapp/colors/colors.dart';
-import 'package:mybankapp/homescreen/homescreen.dart';
-import 'package:mybankapp/images/images.dart';
-import 'package:mybankapp/portfolioscreen/portfolioscreen.dart';
-import 'package:mybankapp/rewardsscreen/rewardsscreen.dart';
-import 'package:mybankapp/routscreens/rout.dart';
-import 'package:mybankapp/savemoneyscreen/savemoneyscreen.dart';
-import 'package:mybankapp/textfontfamily/textfontfamily.dart';
+import 'package:go_router/go_router.dart';
+
+import '../accountscreens/accountscreen.dart';
+import '../colors/colors.dart';
+import '../homescreen/homescreen.dart';
+import '../images/images.dart';
+import '../portfolioscreen/portfolioscreen.dart';
+import '../rewardsscreen/rewardsscreen.dart';
+import '../routes/route_names.dart';
+import '../routscreens/rout.dart';
+import '../savemoneyscreen/savemoneyscreen.dart';
+import '../textfontfamily/textfontfamily.dart';
 
 class NavigationBarBottom extends StatefulWidget {
   @override
@@ -136,9 +138,9 @@ class _NavigationBarBottomState extends State<NavigationBarBottom> {
         selectedItemColor: ColorResources.red,
         onTap: (index) {
           if (index == 1) {
-            Get.off(SaveScreen());
+            context.goNamed(RouteName.saveScreen);
           } else if (index == 3) {
-            Get.off(RewardsScreen());
+            context.goNamed(RouteName.rewardScreen);
           }
 
           setState(() {

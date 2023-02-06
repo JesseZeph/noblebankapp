@@ -1,9 +1,8 @@
 import 'package:flutter/material.dart';
-import 'package:get/get.dart';
-// ignore: must_be_immutable
+
 class NavigatorPage extends StatefulWidget {
-  dynamic navigatorKey;
-  Widget child;
+  final dynamic navigatorKey;
+  final Widget child;
 
   @override
   _NavigatorPageState createState() => _NavigatorPageState();
@@ -15,7 +14,9 @@ class _NavigatorPageState extends State<NavigatorPage> {
   @override
   Widget build(BuildContext context) {
     return Navigator(
-      key: Get.nestedKey(widget.navigatorKey),
+      key: GlobalKey<NavigatorState>(
+        debugLabel: 'nested key: ${widget.navigatorKey.toString()}',
+      ),
       onGenerateRoute: (RouteSettings settings) {
         return MaterialPageRoute(
           settings: settings,

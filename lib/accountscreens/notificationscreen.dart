@@ -1,48 +1,53 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
-import 'package:get/get.dart';
-import 'package:mybankapp/colors/colors.dart';
-import 'package:mybankapp/images/images.dart';
-import 'package:mybankapp/routscreens/routwidget.dart';
-import 'package:mybankapp/textfontfamily/textfontfamily.dart';
+import 'package:go_router/go_router.dart';
+// import 'package:get/get.dart';
+import '../colors/colors.dart';
+import '../images/images.dart';
+import '../routscreens/routwidget.dart';
+import '../textfontfamily/textfontfamily.dart';
+
+import '../routes/route_names.dart';
 
 class NotificationScreen extends StatelessWidget {
   const NotificationScreen({Key? key}) : super(key: key);
 
-  Container container(String image, String text1, String text2) {
-    return Container(
-      height: 75,
-      width: Get.width,
-      decoration: BoxDecoration(
-        borderRadius: BorderRadius.circular(10),
-        color: ColorResources.backGroundColor,
-        border: Border.all(
-          width: 1,
-          color: ColorResources.blue1.withOpacity(0.6),
+  Builder container(String image, String text1, String text2) {
+    return Builder(builder: (context) {
+      return Container(
+        height: 75,
+        width: MediaQuery.of(context).size.width,
+        decoration: BoxDecoration(
+          borderRadius: BorderRadius.circular(10),
+          color: ColorResources.backGroundColor,
+          border: Border.all(
+            width: 1,
+            color: ColorResources.blue1.withOpacity(0.6),
+          ),
         ),
-      ),
-      child: ListTile(
-        leading: Padding(
-          padding: const EdgeInsets.only(top: 8.0),
-          child: SvgPicture.asset(image),
+        child: ListTile(
+          leading: Padding(
+            padding: const EdgeInsets.only(top: 8.0),
+            child: SvgPicture.asset(image),
+          ),
+          title: Text(
+            text1,
+            style: TextStyle(
+                fontFamily: TextFontFamily.helveticaNeueCyrRoman,
+                fontWeight: FontWeight.w500,
+                fontSize: 14,
+                color: ColorResources.white),
+          ),
+          subtitle: Text(
+            text2,
+            style: TextStyle(
+                fontFamily: TextFontFamily.helveticaNeueCyrRoman,
+                fontSize: 12,
+                color: ColorResources.grey2),
+          ),
         ),
-        title: Text(
-          text1,
-          style: TextStyle(
-              fontFamily: TextFontFamily.helveticaNeueCyrRoman,
-              fontWeight: FontWeight.w500,
-              fontSize: 14,
-              color: ColorResources.white),
-        ),
-        subtitle: Text(
-          text2,
-          style: TextStyle(
-              fontFamily: TextFontFamily.helveticaNeueCyrRoman,
-              fontSize: 12,
-              color: ColorResources.grey2),
-        ),
-      ),
-    );
+      );
+    });
   }
 
   @override
@@ -56,10 +61,11 @@ class NotificationScreen extends StatelessWidget {
         leading: InkWell(
             onTap: () {
               selectedIndex = 4;
-              Navigator.of(context, rootNavigator: true)
-                  .pushReplacement(MaterialPageRoute(
-                builder: (context) => NavigationBarBottom(),
-              ));
+              context.goNamed(RouteName.buttombar);
+              // Navigator.of(context, rootNavigator: true)
+              //     .pushReplacement(MaterialPageRoute(
+              //   builder: (context) => NavigationBarBottom(),
+              // ));
             },
             child: Icon(Icons.arrow_back_ios,
                 color: ColorResources.white, size: 15)),

@@ -1,9 +1,11 @@
 import 'package:flutter/material.dart';
-import 'package:get/get.dart';
-import 'package:mybankapp/colors/colors.dart';
-import 'package:mybankapp/homescreen/withdrawmonydetailsscreens/withdrawfaildscreen.dart';
-import 'package:mybankapp/routscreens/routwidget.dart';
-import 'package:mybankapp/textfontfamily/textfontfamily.dart';
+import 'package:go_router/go_router.dart';
+// import 'package:get/get.dart';
+import '../../colors/colors.dart';
+import '../../homescreen/withdrawmonydetailsscreens/withdrawfaildscreen.dart';
+import '../../routes/route_names.dart';
+import '../../routscreens/routwidget.dart';
+import '../../textfontfamily/textfontfamily.dart';
 
 class WithdrawDetailsScreen extends StatelessWidget {
   const WithdrawDetailsScreen({Key? key}) : super(key: key);
@@ -73,6 +75,7 @@ class WithdrawDetailsScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final Size size = MediaQuery.of(context).size;
     return Scaffold(
       backgroundColor: ColorResources.backGroundColor,
       appBar: AppBar(
@@ -85,10 +88,11 @@ class WithdrawDetailsScreen extends StatelessWidget {
           child: InkWell(
             onTap: () {
               selectedIndex = 0;
-              Navigator.of(context, rootNavigator: true)
-                  .pushReplacement(MaterialPageRoute(
-                builder: (context) => NavigationBarBottom(),
-              ));
+              context.goNamed(RouteName.buttombar);
+              // Navigator.of(context, rootNavigator: true)
+              //     .pushReplacement(MaterialPageRoute(
+              //   builder: (context) => NavigationBarBottom(),
+              // ));
             },
             child: Icon(
               Icons.arrow_back_ios,
@@ -179,14 +183,12 @@ class WithdrawDetailsScreen extends StatelessWidget {
               text("Pin"),
               SizedBox(height: 10),
               textFormField("****"),
-              SizedBox(height: Get.height >= 876 ? 250 : 150),
+              SizedBox(height: size.height >= 876 ? 250 : 150),
               InkWell(
-                onTap: () {
-                  Get.off(WithdrawsFaildScreen());
-                },
+                onTap: () =>context.goNamed(RouteName.withdrawsFaildScreen),
                 child: Container(
                   height: 50,
-                  width: Get.width,
+                  width: size.width,
                   decoration: BoxDecoration(
                     color: ColorResources.red,
                     borderRadius: BorderRadius.circular(10),

@@ -1,13 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
-import 'package:get/get.dart';
-import 'package:mybankapp/accountscreens/notificationscreen.dart';
-import 'package:mybankapp/accountscreens/privacypolicyscreen.dart';
-import 'package:mybankapp/accountscreens/termsandconditionsscreen.dart';
-import 'package:mybankapp/colors/colors.dart';
-import 'package:mybankapp/images/images.dart';
-import 'package:mybankapp/textfontfamily/textfontfamily.dart';
-import 'package:mybankapp/welcomescreen/welcomescreen.dart';
+import 'package:go_router/go_router.dart';
+
+import '../colors/colors.dart';
+import '../images/images.dart';
+import '../routes/route_names.dart';
+import '../textfontfamily/textfontfamily.dart';
 
 class AccountScreen extends StatelessWidget {
   const AccountScreen({Key? key}) : super(key: key);
@@ -31,6 +29,7 @@ class AccountScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final Size size = MediaQuery.of(context).size;
     return Scaffold(
       backgroundColor: ColorResources.backGroundColor,
       body: Padding(
@@ -69,8 +68,8 @@ class AccountScreen extends StatelessWidget {
                 ),
                 SizedBox(height: 40),
                 Container(
-                  height: Get.height,
-                  width: Get.width,
+                  height: size.height,
+                  width: size.width,
                   decoration: BoxDecoration(
                     borderRadius: BorderRadius.only(
                       topRight: Radius.circular(35),
@@ -85,32 +84,39 @@ class AccountScreen extends StatelessWidget {
                       child: Column(
                         crossAxisAlignment: CrossAxisAlignment.start,
                         children: [
-                          inkWell(Images.notificationicon, "Notification", () {
-                            Get.off(NotificationScreen());
-                          }),
+                          inkWell(
+                            Images.notificationicon,
+                            "Notification",
+                            () => context.goNamed(RouteName.notificationScreen),
+                          ),
                           Divider(
                             thickness: 0.5,
                             color: ColorResources.blue1.withOpacity(0.6),
                           ),
-                          inkWell(Images.privacypolicyicon, "Privacy policy",
-                              () {
-                            Get.off(PrivacyPolicyScreen());
-                          }),
+                          inkWell(
+                            Images.privacypolicyicon,
+                            "Privacy policy",
+                            () =>
+                                context.goNamed(RouteName.privacyPolicyScreen),
+                          ),
                           Divider(
                             thickness: 0.5,
                             color: ColorResources.blue1.withOpacity(0.6),
                           ),
-                          inkWell(Images.termsandconditionsicon,
-                              "Terms and conditions", () {
-                            Get.off(TermsAndConditions());
-                          }),
+                          inkWell(
+                            Images.termsandconditionsicon,
+                            "Terms and conditions",
+                            () => context.goNamed(RouteName.termsAndConditions),
+                          ),
                           Divider(
                             thickness: 0.5,
                             color: ColorResources.blue1.withOpacity(0.6),
                           ),
-                          inkWell(Images.logouticon, "Logout", () {
-                            Get.off(WelcomeScreen());
-                          }),
+                          inkWell(
+                            Images.logouticon,
+                            "Logout",
+                            () => context.goNamed(RouteName.welcomeScreen),
+                          ),
                           Divider(
                             thickness: 0.5,
                             color: ColorResources.blue1.withOpacity(0.6),

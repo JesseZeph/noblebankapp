@@ -1,17 +1,34 @@
 import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
-import 'package:get/get.dart';
-import 'package:mybankapp/authscreens/signup.dart';
-import 'package:mybankapp/colors/colors.dart';
-import 'package:mybankapp/routscreens/routwidget.dart';
-import 'package:mybankapp/textfontfamily/textfontfamily.dart';
-import 'package:mybankapp/welcomescreen/welcomescreen.dart';
+import 'package:go_router/go_router.dart';
 import 'package:pinput/pin_put/pin_put.dart';
 
-class LogInScreen extends StatelessWidget {
+import '../colors/colors.dart';
+import '../routes/route_names.dart';
+import '../textfontfamily/textfontfamily.dart';
+import '../widgets/textfields.dart';
+
+class LogInScreen extends StatefulWidget {
   LogInScreen({Key? key}) : super(key: key);
-  final TextEditingController _pinPutController = TextEditingController();
+
+  @override
+  State<LogInScreen> createState() => _LogInScreenState();
+}
+
+class _LogInScreenState extends State<LogInScreen> {
+  late TextEditingController _emailController,
+      _passwordController,
+      _pinPutController;
+
   final FocusNode _pinPutFocusNode = FocusNode();
+
+  @override
+  void initState() {
+    _emailController = TextEditingController();
+    _passwordController = TextEditingController();
+    _pinPutController = TextEditingController();
+    super.initState();
+  }
 
   BoxDecoration get _pinPutDecoration {
     return BoxDecoration(
@@ -19,71 +36,10 @@ class LogInScreen extends StatelessWidget {
     );
   }
 
-  Text text(String text) {
-    return Text(
-      text,
-      style: TextStyle(
-        fontSize: 15,
-        fontFamily: TextFontFamily.helveticaNeueCyrRoman,
-        color: ColorResources.white,
-      ),
-    );
-  }
-
-  Container textFormField(String hint) {
-    return Container(
-      color: ColorResources.grey1.withOpacity(0.05),
-      child: TextFormField(
-        style: TextStyle(
-          fontFamily: TextFontFamily.helveticaNeueCyrRoman,
-          fontSize: 13,
-          color: ColorResources.grey2,
-        ),
-        cursorColor: ColorResources.blue1.withOpacity(0.6),
-        decoration: InputDecoration(
-          fillColor: ColorResources.grey1.withOpacity(0.05),
-          contentPadding: EdgeInsets.symmetric(horizontal: 10),
-          hintText: hint,
-          hintStyle: TextStyle(
-            fontFamily: TextFontFamily.helveticaNeueCyrRoman,
-            fontSize: 13,
-            color: ColorResources.grey2,
-          ),
-          enabledBorder: OutlineInputBorder(
-            borderRadius: BorderRadius.circular(5),
-            borderSide: BorderSide(
-              width: 1,
-              color: ColorResources.blue1.withOpacity(0.6),
-            ),
-          ),
-          errorBorder: OutlineInputBorder(
-            borderRadius: BorderRadius.circular(5),
-            borderSide: BorderSide(
-              width: 1,
-              color: ColorResources.blue1.withOpacity(0.6),
-            ),
-          ),
-          focusedErrorBorder: OutlineInputBorder(
-            borderRadius: BorderRadius.circular(5),
-            borderSide: BorderSide(
-              width: 1,
-              color: ColorResources.blue1.withOpacity(0.6),
-            ),
-          ),
-          focusedBorder: OutlineInputBorder(
-            borderRadius: BorderRadius.circular(5),
-            borderSide: BorderSide(
-              width: 1,
-              color: ColorResources.blue1.withOpacity(0.6),
-            ),
-          ),
-        ),
-      ),
-    );
-  }
-
+  // Container textFormField(String hint) {
   @override
   Widget build(BuildContext context) {
+    final Size size = MediaQuery.of(context).size;
     return Scaffold(
       resizeToAvoidBottomInset: false,
       backgroundColor: ColorResources.backGroundColor,
@@ -94,9 +50,7 @@ class LogInScreen extends StatelessWidget {
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
               InkWell(
-                onTap: () {
-                  Get.off(WelcomeScreen());
-                },
+                onTap: () => context.goNamed(RouteName.welcomeScreen),
                 child: Icon(
                   Icons.close,
                   color: ColorResources.white,
@@ -121,11 +75,19 @@ class LogInScreen extends StatelessWidget {
               SizedBox(height: 50),
               text("Email Address"),
               SizedBox(height: 10),
-              textFormField("johndoe@mail.com"),
+              AppTextFormField(
+                controller: _emailController,
+                hintText: "johndoe@mail.com",
+              ),
+              // textFormField("johndoe@mail.com"),
               SizedBox(height: 20),
               text("Password"),
               SizedBox(height: 10),
-              textFormField("*********"),
+              AppTextFormField(
+                controller: _passwordController,
+                hintText: "*********",
+              ),
+              // textFormField("*********"),
               SizedBox(height: 20),
               Text(
                 "Have you forgotten your password?,",
@@ -137,26 +99,27 @@ class LogInScreen extends StatelessWidget {
               SizedBox(height: 10),
               InkWell(
                 onTap: () {
-                  Get.bottomSheet(
-                    SingleChildScrollView(
+                  showModalBottomSheet(
+                    context: context,
+                    builder: (context) => SingleChildScrollView(
                       physics: NeverScrollableScrollPhysics(),
                       child: Column(
                         children: [
                           InkWell(
-                            onTap: () {
-                              Get.back();
-                            },
+                            onTap: () => Navigator.of(context).pop(),
                             child: CircleAvatar(
                               radius: 20,
                               backgroundColor: ColorResources.white,
-                              child: Icon(Icons.close,
-                                  color: ColorResources.backGroundColor),
+                              child: Icon(
+                                Icons.close,
+                                color: ColorResources.backGroundColor,
+                              ),
                             ),
                           ),
                           SizedBox(height: 15),
                           Container(
-                            height: Get.height,
-                            width: Get.width,
+                            height: size.height,
+                            width: size.width,
                             decoration: BoxDecoration(
                               borderRadius: BorderRadius.only(
                                 topLeft: Radius.circular(40),
@@ -201,21 +164,26 @@ class LogInScreen extends StatelessWidget {
                                   SizedBox(height: 30),
                                   text("Email Address"),
                                   SizedBox(height: 10),
-                                  textFormField("johndoe@gmail,com"),
+                                  AppTextFormField(
+                                    controller: _emailController,
+                                    hintText: "johndoe@gmail,com",
+                                  ),
+                                  // textFormField("johndoe@gmail,com"),
                                   SizedBox(
-                                      height: Get.height >= 876 ? 100 : 40),
+                                      height: size.height >= 876 ? 100 : 40),
                                   InkWell(
                                     onTap: () {
-                                      Get.bottomSheet(
-                                        SingleChildScrollView(
+                                      showModalBottomSheet(
+                                        context: context,
+                                        builder: (context) =>
+                                            SingleChildScrollView(
                                           physics:
                                               NeverScrollableScrollPhysics(),
                                           child: Column(
                                             children: [
                                               InkWell(
-                                                onTap: () {
-                                                  Get.back();
-                                                },
+                                                onTap: () =>
+                                                    Navigator.of(context).pop(),
                                                 child: CircleAvatar(
                                                   radius: 20,
                                                   backgroundColor:
@@ -227,8 +195,8 @@ class LogInScreen extends StatelessWidget {
                                               ),
                                               SizedBox(height: 15),
                                               Container(
-                                                height: Get.height,
-                                                width: Get.width,
+                                                height: size.height,
+                                                width: size.width,
                                                 decoration: BoxDecoration(
                                                   borderRadius:
                                                       BorderRadius.only(
@@ -291,7 +259,7 @@ class LogInScreen extends StatelessWidget {
                                                       ),
                                                       SizedBox(
                                                           height:
-                                                              Get.height >= 876
+                                                              size.height >= 876
                                                                   ? 70
                                                                   : 50),
                                                       Builder(
@@ -389,13 +357,16 @@ class LogInScreen extends StatelessWidget {
                                                       ),
                                                       SizedBox(
                                                           height:
-                                                              Get.height >= 876
+                                                              size.height >= 876
                                                                   ? 80
                                                                   : 30),
                                                       InkWell(
                                                         onTap: () {
-                                                          Get.bottomSheet(
-                                                            Padding(
+                                                          showModalBottomSheet(
+                                                            context: context,
+                                                            builder:
+                                                                (context) =>
+                                                                    Padding(
                                                               padding:
                                                                   const EdgeInsets
                                                                           .only(
@@ -407,10 +378,9 @@ class LogInScreen extends StatelessWidget {
                                                                 child: Column(
                                                                   children: [
                                                                     InkWell(
-                                                                      onTap:
-                                                                          () {
-                                                                        Get.back();
-                                                                      },
+                                                                      onTap: () =>
+                                                                          context
+                                                                              .pop(),
                                                                       child:
                                                                           CircleAvatar(
                                                                         radius:
@@ -428,9 +398,9 @@ class LogInScreen extends StatelessWidget {
                                                                         height:
                                                                             15),
                                                                     Container(
-                                                                      height: Get
+                                                                      height: size
                                                                           .height,
-                                                                      width: Get
+                                                                      width: size
                                                                           .width,
                                                                       decoration:
                                                                           BoxDecoration(
@@ -481,21 +451,27 @@ class LogInScreen extends StatelessWidget {
                                                                             SizedBox(height: 55),
                                                                             text("New Password"),
                                                                             SizedBox(height: 9),
-                                                                            textFormField("*********"),
+                                                                            AppTextFormField(
+                                                                              controller: _passwordController,
+                                                                              hintText: "*********",
+                                                                            ),
+                                                                            // textFormField("*********"),
                                                                             SizedBox(height: 22),
                                                                             text("Confirm Password"),
                                                                             SizedBox(height: 9),
-                                                                            textFormField("*********"),
+                                                                            AppTextFormField(
+                                                                              controller: _passwordController,
+                                                                              hintText: "*********",
+                                                                            ),
+                                                                            // textFormField("*********"),
                                                                             // SizedBox(
                                                                             //     height: Get.height >= 876 ? 40 : 20),
                                                                             SizedBox(height: 85),
                                                                             InkWell(
-                                                                              onTap: () {
-                                                                                Get.off(NavigationBarBottom());
-                                                                              },
+                                                                              onTap: () => context.goNamed(RouteName.buttombar),
                                                                               child: Container(
                                                                                 height: 50,
-                                                                                width: Get.width,
+                                                                                width: size.width,
                                                                                 decoration: BoxDecoration(
                                                                                   color: ColorResources.red,
                                                                                   borderRadius: BorderRadius.circular(10),
@@ -526,7 +502,7 @@ class LogInScreen extends StatelessWidget {
                                                         },
                                                         child: Container(
                                                           height: 50,
-                                                          width: Get.width,
+                                                          width: size.width,
                                                           decoration:
                                                               BoxDecoration(
                                                             color:
@@ -564,7 +540,7 @@ class LogInScreen extends StatelessWidget {
                                     },
                                     child: Container(
                                       height: 50,
-                                      width: Get.width,
+                                      width: size.width,
                                       decoration: BoxDecoration(
                                         color: ColorResources.red,
                                         borderRadius: BorderRadius.circular(10),
@@ -594,19 +570,18 @@ class LogInScreen extends StatelessWidget {
                 child: Text(
                   "click here to recover it",
                   style: TextStyle(
-                      fontFamily: TextFontFamily.helveticaNeueCyrRoman,
-                      fontSize: 15,
-                      color: ColorResources.red),
+                    fontFamily: TextFontFamily.helveticaNeueCyrRoman,
+                    fontSize: 15,
+                    color: ColorResources.red,
+                  ),
                 ),
               ),
-              SizedBox(height: Get.height >= 876 ? 220 : 120),
+              SizedBox(height: size.height >= 876 ? 220 : 120),
               InkWell(
-                onTap: () {
-                  Get.off(NavigationBarBottom());
-                },
+                onTap: () => context.goNamed(RouteName.buttombar),
                 child: Container(
                   height: 50,
-                  width: Get.width,
+                  width: size.width,
                   decoration: BoxDecoration(
                     color: ColorResources.red,
                     borderRadius: BorderRadius.circular(10),
@@ -637,7 +612,8 @@ class LogInScreen extends StatelessWidget {
                     children: <TextSpan>[
                       TextSpan(
                         recognizer: TapGestureRecognizer()
-                          ..onTap = () => Get.to(SignUpScreen()),
+                          ..onTap =
+                              () => context.pushNamed(RouteName.signUpScreen),
                         text: " Sign up here",
                         style: TextStyle(
                           fontSize: 15,
@@ -653,6 +629,17 @@ class LogInScreen extends StatelessWidget {
             ],
           ),
         ),
+      ),
+    );
+  }
+
+  Text text(String text) {
+    return Text(
+      text,
+      style: TextStyle(
+        fontSize: 15,
+        fontFamily: TextFontFamily.helveticaNeueCyrRoman,
+        color: ColorResources.white,
       ),
     );
   }

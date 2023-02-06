@@ -1,9 +1,11 @@
 import 'package:flutter/material.dart';
-import 'package:get/get.dart';
-import 'package:mybankapp/colors/colors.dart';
-import 'package:mybankapp/homescreen/savemonydetailsscreens/congrationsscreen.dart';
-import 'package:mybankapp/routscreens/routwidget.dart';
-import 'package:mybankapp/textfontfamily/textfontfamily.dart';
+// import 'package:get/get.dart';
+import 'package:go_router/go_router.dart';
+
+import '../../colors/colors.dart';
+import '../../routes/route_names.dart';
+import '../../routscreens/routwidget.dart';
+import '../../textfontfamily/textfontfamily.dart';
 
 class SaveAddMoneyDetailsScreen extends StatelessWidget {
   const SaveAddMoneyDetailsScreen({Key? key}) : super(key: key);
@@ -73,6 +75,7 @@ class SaveAddMoneyDetailsScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final Size size = MediaQuery.of(context).size;
     return Scaffold(
       backgroundColor: ColorResources.backGroundColor,
       body: Padding(
@@ -84,10 +87,11 @@ class SaveAddMoneyDetailsScreen extends StatelessWidget {
               InkWell(
                 onTap: () {
                   selectedIndex = 0;
-                  Navigator.of(context, rootNavigator: true)
-                      .pushReplacement(MaterialPageRoute(
-                    builder: (context) => NavigationBarBottom(),
-                  ));
+                  context.goNamed(RouteName.buttombar);
+                  // Navigator.of(context, rootNavigator: true)
+                  //     .pushReplacement(MaterialPageRoute(
+                  //   builder: (context) => NavigationBarBottom(),
+                  // ));
                 },
                 child: Icon(
                   Icons.arrow_back_ios,
@@ -163,14 +167,12 @@ class SaveAddMoneyDetailsScreen extends StatelessWidget {
               text("Pin"),
               SizedBox(height: 10),
               textFormField("****"),
-              SizedBox(height: Get.height >= 876 ? 280 : 150),
+              SizedBox(height: size.height >= 876 ? 280 : 150),
               InkWell(
-                onTap: () {
-                  Get.off(CongratulationsScreen());
-                },
+                onTap: () =>context.goNamed(RouteName.congratulationsScreen),
                 child: Container(
                   height: 50,
-                  width: Get.width,
+                  width: size.width,
                   decoration: BoxDecoration(
                     color: ColorResources.red,
                     borderRadius: BorderRadius.circular(10),

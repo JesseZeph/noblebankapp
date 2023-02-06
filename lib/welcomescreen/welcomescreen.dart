@@ -1,17 +1,16 @@
 import 'package:flutter/material.dart';
-import 'package:get/get.dart';
-import 'package:mybankapp/authscreens/loginscreen.dart';
-import 'package:mybankapp/authscreens/signup.dart';
-import 'package:mybankapp/colors/colors.dart';
-import 'package:mybankapp/textfontfamily/textfontfamily.dart';
+import 'package:go_router/go_router.dart';
+
+import '../colors/colors.dart';
+import '../routes/route_names.dart';
+import '../textfontfamily/textfontfamily.dart';
 
 class WelcomeScreen extends StatelessWidget {
   const WelcomeScreen({Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
-    print("height#####${MediaQuery.of(context).size.height}");
-    print("width#####${MediaQuery.of(context).size.width}");
+    final Size size = MediaQuery.of(context).size;
     return Scaffold(
       backgroundColor: ColorResources.backGroundColor,
       body: Stack(
@@ -48,12 +47,10 @@ class WelcomeScreen extends StatelessWidget {
             child: Column(
               children: [
                 InkWell(
-                  onTap: () {
-                    Get.off(SignUpScreen());
-                  },
+                  onTap: () => context.goNamed(RouteName.signUpScreen),
                   child: Container(
                     height: 50,
-                    width: Get.width,
+                    width: size.width,
                     decoration: BoxDecoration(
                       color: ColorResources.red,
                       borderRadius: BorderRadius.circular(10),
@@ -72,12 +69,10 @@ class WelcomeScreen extends StatelessWidget {
                 ),
                 SizedBox(height: 20),
                 InkWell(
-                  onTap: () {
-                    Get.off(LogInScreen());
-                  },
+                  onTap: () => context.goNamed(RouteName.logInScreen),
                   child: Container(
                     height: 50,
-                    width: Get.width,
+                    width: size.width,
                     decoration: BoxDecoration(
                       color: ColorResources.blue,
                       borderRadius: BorderRadius.circular(10),

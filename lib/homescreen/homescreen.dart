@@ -1,14 +1,14 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
-import 'package:get/get.dart';
-import 'package:mybankapp/colors/colors.dart';
-import 'package:mybankapp/homescreen/bottomsheetwidget/addmonybottomsheetwidget.dart';
-import 'package:mybankapp/homescreen/bottomsheetwidget/emergencysavemoneybottomsheetwidget.dart';
-import 'package:mybankapp/homescreen/bottomsheetwidget/withdrawmoneybottomsheetwidget.dart';
-import 'package:mybankapp/homescreen/investmoneyscreens/investmoneyscreen.dart';
-import 'package:mybankapp/images/images.dart';
-import 'package:mybankapp/rewardsscreen/rewardsscreen.dart';
-import 'package:mybankapp/textfontfamily/textfontfamily.dart';
+import 'package:go_router/go_router.dart';
+
+import '../colors/colors.dart';
+import '../homescreen/bottomsheetwidget/addmonybottomsheetwidget.dart';
+import '../homescreen/bottomsheetwidget/emergencysavemoneybottomsheetwidget.dart';
+import '../homescreen/bottomsheetwidget/withdrawmoneybottomsheetwidget.dart';
+import '../images/images.dart';
+import '../routes/route_names.dart';
+import '../textfontfamily/textfontfamily.dart';
 
 class HomeScreen extends StatefulWidget {
   const HomeScreen({Key? key}) : super(key: key);
@@ -18,12 +18,12 @@ class HomeScreen extends StatefulWidget {
 }
 
 class _HomeScreenState extends State<HomeScreen> {
-  InkWell inkwell(String image, String text, Function() onTap) {
+  InkWell inkwell(Size size, String image, String text, Function() onTap) {
     return InkWell(
       onTap: onTap,
       child: Container(
         height: 60,
-        width: Get.width,
+        width: size.width,
         decoration: BoxDecoration(
           borderRadius: BorderRadius.circular(8),
           border: Border.all(
@@ -55,17 +55,6 @@ class _HomeScreenState extends State<HomeScreen> {
           ),
         ),
       ),
-    );
-  }
-
-  Text text(String text) {
-    return Text(
-      text,
-      style: TextStyle(
-          fontFamily: TextFontFamily.helveticaNeueCyrRoman,
-          fontWeight: FontWeight.w500,
-          fontSize: 17,
-          color: ColorResources.white),
     );
   }
 
@@ -104,6 +93,7 @@ class _HomeScreenState extends State<HomeScreen> {
 
   @override
   Widget build(BuildContext context) {
+    final Size size = MediaQuery.of(context).size;
     return Scaffold(
       backgroundColor: ColorResources.backGroundColor,
       appBar: AppBar(
@@ -182,11 +172,13 @@ class _HomeScreenState extends State<HomeScreen> {
                 children: [
                   Expanded(
                     child: inkwell(
+                      size,
                       Images.addmonyimage,
                       "Add money",
                       () {
-                        Get.bottomSheet(
-                          AddMoneyBottomSheetWidget(),
+                        showModalBottomSheet(
+                          context: context,
+                          builder: (context) => AddMoneyBottomSheetWidget(),
                           backgroundColor: Colors.transparent,
                           isScrollControlled: true,
                         );
@@ -196,11 +188,14 @@ class _HomeScreenState extends State<HomeScreen> {
                   SizedBox(width: 20),
                   Expanded(
                     child: inkwell(
+                      size,
                       Images.withdrawmonyimage,
                       "Withdraw",
                       () {
-                        Get.bottomSheet(
-                          WithdrawMoneyBottomSheetWidget(),
+                        showModalBottomSheet(
+                          context: context,
+                          builder: (context) =>
+                              WithdrawMoneyBottomSheetWidget(),
                           backgroundColor: Colors.transparent,
                           isScrollControlled: true,
                         );
@@ -227,23 +222,28 @@ class _HomeScreenState extends State<HomeScreen> {
                     text("Get your money working for you"),
                     SizedBox(height: 20),
                     inkwell2(Images.savemonyimage, "Save for an emergency", () {
-                      Get.bottomSheet(
-                        EmergencySaveAMoneyBottomSheetWidget(),
+                      showModalBottomSheet(
+                        context: context,
+                        builder: (context) =>
+                            EmergencySaveAMoneyBottomSheetWidget(),
                         backgroundColor: Colors.transparent,
                         isScrollControlled: true,
                       );
                     }),
                     SizedBox(height: 20),
-                    inkwell2(Images.investmonyimage, "Invest your money", () {
-                      Get.off(InvestMoneyScreen());
-                    }),
+                    inkwell2(
+                      Images.investmonyimage,
+                      "Invest your money",
+                      () => context.goNamed(RouteName.investMoneyScreen),
+                    ),
                     SizedBox(height: 35),
                     text("Ways to earn more money"),
                     SizedBox(height: 20),
-                    inkwell2(Images.bonusimage,
-                        "Invite your friends and get a bonus", () {
-                      Get.off(RewardsScreen());
-                    }),
+                    inkwell2(
+                      Images.bonusimage,
+                      "Invite your friends and get a bonus",
+                      () => context.goNamed(RouteName.rewardScreen),
+                    ),
                     SizedBox(height: 20),
                   ],
                 ),
@@ -252,6 +252,17 @@ class _HomeScreenState extends State<HomeScreen> {
           ],
         ),
       ),
+    );
+  }
+
+  Text text(String text) {
+    return Text(
+      text,
+      style: TextStyle(
+          fontFamily: TextFontFamily.helveticaNeueCyrRoman,
+          fontWeight: FontWeight.w500,
+          fontSize: 17,
+          color: ColorResources.white),
     );
   }
 }
