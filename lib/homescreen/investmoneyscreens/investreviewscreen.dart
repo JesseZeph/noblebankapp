@@ -1,10 +1,11 @@
 import 'package:flutter/material.dart';
-import 'package:get/get.dart';
-import 'package:mybankapp/colors/colors.dart';
-import 'package:mybankapp/homescreen/investmoneyscreens/investcongratulationsscreen.dart';
-import 'package:mybankapp/images/images.dart';
-import 'package:mybankapp/routscreens/routwidget.dart';
-import 'package:mybankapp/textfontfamily/textfontfamily.dart';
+import 'package:go_router/go_router.dart';
+
+// import 'package:get/get.dart';
+import '../../colors/colors.dart';
+import '../../images/images.dart';
+import '../../routes/route_names.dart';
+import '../../textfontfamily/textfontfamily.dart';
 
 class InvestReviewScreen extends StatelessWidget {
   const InvestReviewScreen({Key? key}) : super(key: key);
@@ -35,6 +36,7 @@ class InvestReviewScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final Size size = MediaQuery.of(context).size;
     return Scaffold(
       backgroundColor: ColorResources.backGroundColor,
       body: Padding(
@@ -45,11 +47,12 @@ class InvestReviewScreen extends StatelessWidget {
             children: [
               InkWell(
                 onTap: () {
-                  selectedIndex = 0;
-                  Navigator.of(context, rootNavigator: true)
-                      .pushReplacement(MaterialPageRoute(
-                    builder: (context) => NavigationBarBottom(),
-                  ));
+                  // selectedIndex = 0;
+                  context.goNamed(RouteName.homeScreen);
+                  // Navigator.of(context, rootNavigator: true)
+                  //     .pushReplacement(MaterialPageRoute(
+                  //   builder: (context) => NavigationBarBottom(),
+                  // ));
                 },
                 child: Icon(
                   Icons.arrow_back_ios,
@@ -122,80 +125,81 @@ class InvestReviewScreen extends StatelessWidget {
                   color: ColorResources.grey2,
                 ),
               ),
-              SizedBox(height: Get.height >= 876 ? 150 : 70),
+              SizedBox(height: size.height >= 876 ? 150 : 70),
               InkWell(
                 onTap: () {
-                  Get.defaultDialog(
+                  showDialog(
+                    context: context,
                     barrierDismissible: true,
-                    title: "",
-                    titlePadding: EdgeInsets.zero,
-                    contentPadding: EdgeInsets.zero,
-                    backgroundColor: ColorResources.blue2,
-                    content: Padding(
-                      padding: const EdgeInsets.symmetric(horizontal: 25),
-                      child: Column(
-                        crossAxisAlignment: CrossAxisAlignment.start,
-                        children: [
-                          SizedBox(height: 10),
-                          Text(
-                            "Please Confirm",
-                            style: TextStyle(
-                                fontFamily:
-                                    TextFontFamily.helveticaNeueCyrRoman,
-                                fontSize: 17,
-                                color: ColorResources.white),
-                          ),
-                          SizedBox(height: 30),
-                          Text(
-                            "We are about to complete your request and credit your account. Please confirm this transaction.",
-                            style: TextStyle(
-                                fontFamily:
-                                    TextFontFamily.helveticaNeueCyrLight,
-                                fontSize: 17,
-                                color: ColorResources.white),
-                          ),
-                          SizedBox(height: 30),
-                          Row(
-                            mainAxisAlignment: MainAxisAlignment.end,
-                            children: [
-                              InkWell(
-                                onTap: () {
-                                  Get.back();
-                                },
-                                child: Text(
-                                  "CANCEL",
-                                  style: TextStyle(
-                                      fontFamily:
-                                          TextFontFamily.helveticaNeueCyrRoman,
-                                      fontSize: 17,
-                                      color: ColorResources.grey2),
+                    builder: (context) => AlertDialog(
+                      title: Text(""),
+                      titlePadding: EdgeInsets.zero,
+                      contentPadding: EdgeInsets.zero,
+                      backgroundColor: ColorResources.blue2,
+                      content: Padding(
+                        padding: const EdgeInsets.symmetric(horizontal: 25),
+                        child: Column(
+                          mainAxisSize: MainAxisSize.min,
+                          crossAxisAlignment: CrossAxisAlignment.start,
+                          children: [
+                            SizedBox(height: 10),
+                            Text(
+                              "Please Confirm",
+                              style: TextStyle(
+                                  fontFamily:
+                                      TextFontFamily.helveticaNeueCyrRoman,
+                                  fontSize: 17,
+                                  color: ColorResources.white),
+                            ),
+                            SizedBox(height: 30),
+                            Text(
+                              "We are about to complete your request and credit your account. Please confirm this transaction.",
+                              style: TextStyle(
+                                  fontFamily:
+                                      TextFontFamily.helveticaNeueCyrLight,
+                                  fontSize: 17,
+                                  color: ColorResources.white),
+                            ),
+                            SizedBox(height: 30),
+                            Row(
+                              mainAxisAlignment: MainAxisAlignment.end,
+                              children: [
+                                InkWell(
+                                  onTap: () => Navigator.of(context).pop(),
+                                  child: Text(
+                                    "CANCEL",
+                                    style: TextStyle(
+                                        fontFamily: TextFontFamily
+                                            .helveticaNeueCyrRoman,
+                                        fontSize: 17,
+                                        color: ColorResources.grey2),
+                                  ),
                                 ),
-                              ),
-                              SizedBox(width: 10),
-                              InkWell(
-                                onTap: () {
-                                  Get.off(InvestCongratulationsScreen());
-                                },
-                                child: Text(
-                                  "CONFIRM",
-                                  style: TextStyle(
-                                      fontFamily:
-                                          TextFontFamily.helveticaNeueCyrRoman,
-                                      fontSize: 17,
-                                      color: ColorResources.red2),
+                                SizedBox(width: 10),
+                                InkWell(
+                                  onTap: () => context.goNamed(
+                                      RouteName.investCongratulationsScreen),
+                                  child: Text(
+                                    "CONFIRM",
+                                    style: TextStyle(
+                                        fontFamily: TextFontFamily
+                                            .helveticaNeueCyrRoman,
+                                        fontSize: 17,
+                                        color: ColorResources.red2),
+                                  ),
                                 ),
-                              ),
-                            ],
-                          ),
-                          SizedBox(height: 10),
-                        ],
+                              ],
+                            ),
+                            SizedBox(height: 10),
+                          ],
+                        ),
                       ),
                     ),
                   );
                 },
                 child: Container(
                   height: 50,
-                  width: Get.width,
+                  width: size.width,
                   decoration: BoxDecoration(
                     color: ColorResources.red,
                     borderRadius: BorderRadius.circular(10),

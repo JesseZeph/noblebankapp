@@ -1,16 +1,18 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
-import 'package:get/get.dart';
-import 'package:mybankapp/colors/colors.dart';
-import 'package:mybankapp/images/images.dart';
-import 'package:mybankapp/routscreens/routwidget.dart';
-import 'package:mybankapp/textfontfamily/textfontfamily.dart';
+import 'package:go_router/go_router.dart';
+
+import '../colors/colors.dart';
+import '../images/images.dart';
+import '../routes/route_names.dart';
+import '../textfontfamily/textfontfamily.dart';
 
 class RewardsScreen extends StatelessWidget {
   const RewardsScreen({Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
+    final Size size = MediaQuery.of(context).size;
     return Scaffold(
       backgroundColor: ColorResources.backGroundColor,
       appBar: AppBar(
@@ -19,11 +21,8 @@ class RewardsScreen extends StatelessWidget {
         automaticallyImplyLeading: false,
         leading: InkWell(
           onTap: () {
-            selectedIndex = 0;
-            Navigator.of(context, rootNavigator: true)
-                .pushReplacement(MaterialPageRoute(
-              builder: (context) => NavigationBarBottom(),
-            ));
+            // selectedIndex = 0;
+            context.goNamed(RouteName.homeScreen);
           },
           child:
               Icon(Icons.arrow_back_ios, color: ColorResources.white, size: 15),
@@ -41,7 +40,7 @@ class RewardsScreen extends StatelessWidget {
                   Image.asset(Images.rewardsscreenimage),
                   SizedBox(height: 50),
                   Text(
-                    "Get Free \₦1,000",
+                    "Get Free ₦1,000",
                     style: TextStyle(
                         fontFamily: TextFontFamily.helveticaNeueCyrRoman,
                         fontSize: 30,
@@ -80,7 +79,7 @@ class RewardsScreen extends StatelessWidget {
                         flex: 2,
                         child: Container(
                           height: 50,
-                          width: Get.width,
+                          width: size.width,
                           decoration: BoxDecoration(
                             color: ColorResources.blue,
                             borderRadius: BorderRadius.circular(10),
@@ -96,10 +95,11 @@ class RewardsScreen extends StatelessWidget {
                                   Text(
                                     "ABCDE123",
                                     style: TextStyle(
-                                        fontFamily:
-                                            TextFontFamily.helveticNeueCyrBold,
-                                        fontSize: 15,
-                                        color: ColorResources.red),
+                                      fontFamily:
+                                          TextFontFamily.helveticNeueCyrBold,
+                                      fontSize: 15,
+                                      color: ColorResources.red,
+                                    ),
                                   ),
                                   SvgPicture.asset(Images.copyicon),
                                 ],
@@ -113,7 +113,7 @@ class RewardsScreen extends StatelessWidget {
                         flex: 1,
                         child: Container(
                           height: 50,
-                          width: Get.width,
+                          width: size.width,
                           decoration: BoxDecoration(
                             color: ColorResources.red,
                             borderRadius: BorderRadius.circular(10),

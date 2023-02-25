@@ -1,15 +1,18 @@
 import 'package:flutter/material.dart';
-import 'package:get/get.dart';
-import 'package:mybankapp/colors/colors.dart';
-import 'package:mybankapp/images/images.dart';
-import 'package:mybankapp/routscreens/routwidget.dart';
-import 'package:mybankapp/textfontfamily/textfontfamily.dart';
+import 'package:go_router/go_router.dart';
+// import 'package:get/get.dart';
+import '../../colors/colors.dart';
+import '../../images/images.dart';
+import '../../textfontfamily/textfontfamily.dart';
+
+import '../../routes/route_names.dart';
 
 class CongratulationsScreen extends StatelessWidget {
   const CongratulationsScreen({Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
+    final Size size = MediaQuery.of(context).size;
     return Scaffold(
       backgroundColor: ColorResources.backGroundColor,
       body: Padding(
@@ -73,15 +76,16 @@ class CongratulationsScreen extends StatelessWidget {
               padding: const EdgeInsets.symmetric(horizontal: 15),
               child: InkWell(
                 onTap: () {
-                  selectedIndex = 0;
-                  Navigator.of(context, rootNavigator: true)
-                      .pushReplacement(MaterialPageRoute(
-                    builder: (context) => NavigationBarBottom(),
-                  ));
+                  // selectedIndex = 0;
+                  context.goNamed(RouteName.homeScreen);
+                  // Navigator.of(context, rootNavigator: true)
+                  //     .pushReplacement(MaterialPageRoute(
+                  //   builder: (context) => NavigationBarBottom(),
+                  // ));
                 },
                 child: Container(
                   height: 50,
-                  width: Get.width,
+                  width: size.width,
                   decoration: BoxDecoration(
                     color: ColorResources.green,
                     borderRadius: BorderRadius.circular(10),

@@ -1,109 +1,36 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_svg/flutter_svg.dart';
-import 'package:get/get.dart';
-import 'package:mybankapp/colors/colors.dart';
-import 'package:mybankapp/homescreen/bottomsheetwidget/addmonybottomsheetwidget.dart';
-import 'package:mybankapp/homescreen/bottomsheetwidget/emergencysavemoneybottomsheetwidget.dart';
-import 'package:mybankapp/homescreen/bottomsheetwidget/withdrawmoneybottomsheetwidget.dart';
-import 'package:mybankapp/homescreen/investmoneyscreens/investmoneyscreen.dart';
-import 'package:mybankapp/images/images.dart';
-import 'package:mybankapp/rewardsscreen/rewardsscreen.dart';
-import 'package:mybankapp/textfontfamily/textfontfamily.dart';
+import 'package:go_router/go_router.dart';
+import '../extensions/on_string.dart';
+import 'package:shimmer/shimmer.dart';
 
-class HomeScreen extends StatefulWidget {
+import '../colors/colors.dart';
+import '../homescreen/bottomsheetwidget/addmonybottomsheetwidget.dart';
+import '../homescreen/bottomsheetwidget/emergencysavemoneybottomsheetwidget.dart';
+import '../homescreen/bottomsheetwidget/withdrawmoneybottomsheetwidget.dart';
+import '../images/images.dart';
+import '../models/user_model.dart';
+import '../routes/route_names.dart';
+import '../services/user_services.dart';
+import '../textfontfamily/textfontfamily.dart';
+
+// class HomeScreen extends StatefulWidget {
+//   const HomeScreen({Key? key}) : super(key: key);
+
+//   @override
+//   State<HomeScreen> createState() => _HomeScreenState();
+// }
+
+class HomeScreen extends ConsumerWidget {
   const HomeScreen({Key? key}) : super(key: key);
 
-  @override
-  State<HomeScreen> createState() => _HomeScreenState();
-}
-
-class _HomeScreenState extends State<HomeScreen> {
-  InkWell inkwell(String image, String text, Function() onTap) {
-    return InkWell(
-      onTap: onTap,
-      child: Container(
-        height: 60,
-        width: Get.width,
-        decoration: BoxDecoration(
-          borderRadius: BorderRadius.circular(8),
-          border: Border.all(
-            color: ColorResources.blue1,
-            width: 1,
-          ),
-          color: Colors.transparent,
-        ),
-        child: Padding(
-          padding: const EdgeInsets.symmetric(horizontal: 15),
-          child: Row(
-            mainAxisAlignment: MainAxisAlignment.spaceBetween,
-            children: [
-              SvgPicture.asset(
-                image,
-                height: 25,
-                width: 25,
-              ),
-              Text(
-                text,
-                style: TextStyle(
-                  fontWeight: FontWeight.w500,
-                  fontSize: 17,
-                  fontFamily: TextFontFamily.helveticaNeueCyrMedium,
-                  color: ColorResources.blue1,
-                ),
-              ),
-            ],
-          ),
-        ),
-      ),
-    );
-  }
-
-  Text text(String text) {
-    return Text(
-      text,
-      style: TextStyle(
-          fontFamily: TextFontFamily.helveticaNeueCyrRoman,
-          fontWeight: FontWeight.w500,
-          fontSize: 17,
-          color: ColorResources.white),
-    );
-  }
-
-  InkWell inkwell2(String image, String text, Function() onTap) {
-    return InkWell(
-      onTap: onTap,
-      child: Container(
-        decoration: BoxDecoration(
-          borderRadius: BorderRadius.circular(8),
-          color: ColorResources.blue,
-        ),
-        child: ListTile(
-          leading: CircleAvatar(
-            radius: 20,
-            backgroundColor: ColorResources.grey4,
-            child: SvgPicture.asset(image),
-          ),
-          title: Text(
-            text,
-            style: TextStyle(
-                fontFamily: TextFontFamily.helveticaNeueCyrRoman,
-                fontSize: 15,
-                color: ColorResources.white),
-          ),
-          trailing: Icon(
-            Icons.arrow_forward_ios,
-            color: ColorResources.white,
-            size: 15,
-          ),
-        ),
-      ),
-    );
-  }
-
-  String number = "";
+  // String number = "";
 
   @override
-  Widget build(BuildContext context) {
+  Widget build(BuildContext context, WidgetRef ref) {
+    final userDetails = ref.watch(userDetailProvider);
+    final Size size = MediaQuery.of(context).size;
     return Scaffold(
       backgroundColor: ColorResources.backGroundColor,
       appBar: AppBar(
@@ -123,13 +50,34 @@ class _HomeScreenState extends State<HomeScreen> {
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-              Text(
-                "Hello John,",
-                style: TextStyle(
+              userDetails.when(
+                loading: () => Shimmer.fromColors(
+                  baseColor: ColorResources.grey2,
+                  highlightColor: Colors.white,
+                  child: Container(
+                    color: ColorResources.grey,
+                    height: 36,
+                    width: 110,
+                  ),
+                ),
+                data: (UserModel data) => Text(
+                  "Hello ${data.fullname!.first.toTitle},",
+                  style: TextStyle(
                     fontFamily: TextFontFamily.helveticaNeueCyrRoman,
                     fontWeight: FontWeight.w500,
                     fontSize: 20,
-                    color: ColorResources.white),
+                    color: ColorResources.white,
+                  ),
+                ),
+                error: (Object error, StackTrace stackTrace) => Text(
+                  'error',
+                  style: TextStyle(
+                    fontFamily: TextFontFamily.helveticaNeueCyrRoman,
+                    fontWeight: FontWeight.w500,
+                    fontSize: 20,
+                    color: ColorResources.white,
+                  ),
+                ),
               ),
               Row(
                 children: [
@@ -182,11 +130,13 @@ class _HomeScreenState extends State<HomeScreen> {
                 children: [
                   Expanded(
                     child: inkwell(
+                      size,
                       Images.addmonyimage,
                       "Add money",
                       () {
-                        Get.bottomSheet(
-                          AddMoneyBottomSheetWidget(),
+                        showModalBottomSheet(
+                          context: context,
+                          builder: (context) => AddMoneyBottomSheetWidget(),
                           backgroundColor: Colors.transparent,
                           isScrollControlled: true,
                         );
@@ -196,11 +146,14 @@ class _HomeScreenState extends State<HomeScreen> {
                   SizedBox(width: 20),
                   Expanded(
                     child: inkwell(
+                      size,
                       Images.withdrawmonyimage,
                       "Withdraw",
                       () {
-                        Get.bottomSheet(
-                          WithdrawMoneyBottomSheetWidget(),
+                        showModalBottomSheet(
+                          context: context,
+                          builder: (context) =>
+                              WithdrawMoneyBottomSheetWidget(),
                           backgroundColor: Colors.transparent,
                           isScrollControlled: true,
                         );
@@ -227,29 +180,116 @@ class _HomeScreenState extends State<HomeScreen> {
                     text("Get your money working for you"),
                     SizedBox(height: 20),
                     inkwell2(Images.savemonyimage, "Save for an emergency", () {
-                      Get.bottomSheet(
-                        EmergencySaveAMoneyBottomSheetWidget(),
+                      showModalBottomSheet(
+                        context: context,
+                        builder: (context) =>
+                            EmergencySaveAMoneyBottomSheetWidget(),
                         backgroundColor: Colors.transparent,
                         isScrollControlled: true,
                       );
                     }),
                     SizedBox(height: 20),
-                    inkwell2(Images.investmonyimage, "Invest your money", () {
-                      Get.off(InvestMoneyScreen());
-                    }),
+                    inkwell2(
+                      Images.investmonyimage,
+                      "Invest your money",
+                      () => context.goNamed(RouteName.investMoneyScreen),
+                    ),
                     SizedBox(height: 35),
                     text("Ways to earn more money"),
                     SizedBox(height: 20),
-                    inkwell2(Images.bonusimage,
-                        "Invite your friends and get a bonus", () {
-                      Get.off(RewardsScreen());
-                    }),
+                    inkwell2(
+                      Images.bonusimage,
+                      "Invite your friends and get a bonus",
+                      () => context.goNamed(RouteName.rewardScreen),
+                    ),
                     SizedBox(height: 20),
                   ],
                 ),
               ),
             ),
           ],
+        ),
+      ),
+    );
+  }
+
+  Text text(String text) {
+    return Text(
+      text,
+      style: TextStyle(
+          fontFamily: TextFontFamily.helveticaNeueCyrRoman,
+          fontWeight: FontWeight.w500,
+          fontSize: 17,
+          color: ColorResources.white),
+    );
+  }
+
+  InkWell inkwell(Size size, String image, String text, Function() onTap) {
+    return InkWell(
+      onTap: onTap,
+      child: Container(
+        height: 60,
+        width: size.width,
+        decoration: BoxDecoration(
+          borderRadius: BorderRadius.circular(8),
+          border: Border.all(
+            color: ColorResources.blue1,
+            width: 1,
+          ),
+          color: Colors.transparent,
+        ),
+        child: Padding(
+          padding: const EdgeInsets.symmetric(horizontal: 15),
+          child: Row(
+            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+            children: [
+              SvgPicture.asset(
+                image,
+                height: 25,
+                width: 25,
+              ),
+              Text(
+                text,
+                style: TextStyle(
+                  fontWeight: FontWeight.w500,
+                  fontSize: 17,
+                  fontFamily: TextFontFamily.helveticaNeueCyrMedium,
+                  color: ColorResources.blue1,
+                ),
+              ),
+            ],
+          ),
+        ),
+      ),
+    );
+  }
+
+  InkWell inkwell2(String image, String text, Function() onTap) {
+    return InkWell(
+      onTap: onTap,
+      child: Container(
+        decoration: BoxDecoration(
+          borderRadius: BorderRadius.circular(8),
+          color: ColorResources.blue,
+        ),
+        child: ListTile(
+          leading: CircleAvatar(
+            radius: 20,
+            backgroundColor: ColorResources.grey4,
+            child: SvgPicture.asset(image),
+          ),
+          title: Text(
+            text,
+            style: TextStyle(
+                fontFamily: TextFontFamily.helveticaNeueCyrRoman,
+                fontSize: 15,
+                color: ColorResources.white),
+          ),
+          trailing: Icon(
+            Icons.arrow_forward_ios,
+            color: ColorResources.white,
+            size: 15,
+          ),
         ),
       ),
     );

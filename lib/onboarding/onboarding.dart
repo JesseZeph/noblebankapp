@@ -1,19 +1,22 @@
 import 'package:flutter/material.dart';
-import 'package:get/get.dart';
-import 'package:mybankapp/colors/colors.dart';
-import 'package:mybankapp/images/images.dart';
-import 'package:mybankapp/textfontfamily/textfontfamily.dart';
-import 'package:mybankapp/welcomescreen/welcomescreen.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:go_router/go_router.dart';
 
-class OnBoardingScreen extends StatefulWidget {
+import '../colors/colors.dart';
+import '../images/images.dart';
+import '../routes/route_names.dart';
+import '../services/pref_service.dart';
+import '../textfontfamily/textfontfamily.dart';
+
+class OnBoardingScreen extends ConsumerStatefulWidget {
   OnBoardingScreen({Key? key}) : super(key: key);
 
   @override
   _OnBoardingScreenState createState() => _OnBoardingScreenState();
 }
 
-class _OnBoardingScreenState extends State<OnBoardingScreen> {
-  PageController pageController = PageController(initialPage: 0);
+class _OnBoardingScreenState extends ConsumerState<OnBoardingScreen> {
+  late PageController _pageController;
   int index = 0;
   List pageviewlist = [
     {
@@ -37,7 +40,20 @@ class _OnBoardingScreenState extends State<OnBoardingScreen> {
   ];
 
   @override
+  void initState() {
+    _pageController = PageController(initialPage: 0);
+    super.initState();
+  }
+
+  @override
+  void dispose() {
+    _pageController.dispose();
+    super.dispose();
+  }
+
+  @override
   Widget build(BuildContext context) {
+    final Size size = MediaQuery.of(context).size;
     return Scaffold(
       backgroundColor: ColorResources.backGroundColor,
       appBar: AppBar(
@@ -48,9 +64,9 @@ class _OnBoardingScreenState extends State<OnBoardingScreen> {
           Padding(
             padding: const EdgeInsets.only(top: 20, right: 20),
             child: InkWell(
-              onTap: () {
-                Get.off(WelcomeScreen());
-              },
+              onTap: () => ref.read(prefServiceProvider).setOnboarding().then(
+                    (value) => context.goNamed(RouteName.welcomeScreen),
+                  ),
               child: Container(
                 height: 35,
                 width: 80,
@@ -78,7 +94,7 @@ class _OnBoardingScreenState extends State<OnBoardingScreen> {
           PageView.builder(
             physics: BouncingScrollPhysics(),
             itemCount: pageviewlist.length,
-            controller: pageController,
+            controller: _pageController,
             scrollDirection: Axis.horizontal,
             onPageChanged: (i) {
               setState(
@@ -93,7 +109,7 @@ class _OnBoardingScreenState extends State<OnBoardingScreen> {
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
-                    SizedBox(height: Get.height / 82.1),
+                    SizedBox(height: size.height / 82.1),
                     // SizedBox(height:10),
                     Center(
                       child: Padding(
@@ -111,7 +127,7 @@ class _OnBoardingScreenState extends State<OnBoardingScreen> {
                       ),
                     ),
                     //SizedBox(height: 20),
-                    SizedBox(height: Get.height / 40.55),
+                    SizedBox(height: size.height / 40.55),
                     Text(
                       pageviewlist[index]["text2"],
                       style: TextStyle(
@@ -155,9 +171,13 @@ class _OnBoardingScreenState extends State<OnBoardingScreen> {
             child: InkWell(
               onTap: () {
                 index == 2
-                    ? Get.off(WelcomeScreen())
-                    : pageController.nextPage(
-                        duration: 300.milliseconds, curve: Curves.ease);
+                    ? ref.read(prefServiceProvider).setOnboarding().then(
+                          (value) => context.goNamed(RouteName.welcomeScreen),
+                        )
+                    : _pageController.nextPage(
+                        duration: Duration(milliseconds: 300),
+                        curve: Curves.ease,
+                      );
               },
               child: Container(
                 height: 50,

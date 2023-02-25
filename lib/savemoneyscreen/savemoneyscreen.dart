@@ -1,11 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
-import 'package:get/get.dart';
-import 'package:mybankapp/colors/colors.dart';
-import 'package:mybankapp/homescreen/savemonydetailsscreens/saveaddmoneydetailsscreen.dart';
-import 'package:mybankapp/images/images.dart';
-import 'package:mybankapp/routscreens/routwidget.dart';
-import 'package:mybankapp/textfontfamily/textfontfamily.dart';
+import 'package:go_router/go_router.dart';
+
+import '../colors/colors.dart';
+import '../images/images.dart';
+import '../routes/route_names.dart';
+import '../textfontfamily/textfontfamily.dart';
 
 class SaveScreen extends StatefulWidget {
   const SaveScreen({Key? key}) : super(key: key);
@@ -33,21 +33,19 @@ class _SaveScreenState extends State<SaveScreen> {
 
   @override
   Widget build(BuildContext context) {
+    final Size size = MediaQuery.of(context).size;
     return Scaffold(
       backgroundColor: Colors.black,
       body: SingleChildScrollView(
         physics: NeverScrollableScrollPhysics(),
         child: Padding(
-          padding: EdgeInsets.only(top: Get.height >= 876 ? 35 : 25),
+          padding: EdgeInsets.only(top: size.height >= 876 ? 35 : 25),
           child: Column(
             children: [
               InkWell(
                 onTap: () {
-                  selectedIndex = 0;
-                  Navigator.of(context, rootNavigator: true)
-                      .pushReplacement(MaterialPageRoute(
-                    builder: (context) => NavigationBarBottom(),
-                  ));
+                  // selectedIndex = 0;
+                  context.pushNamed(RouteName.homeScreen);
                 },
                 child: CircleAvatar(
                   radius: 20,
@@ -58,8 +56,8 @@ class _SaveScreenState extends State<SaveScreen> {
               ),
               SizedBox(height: 15),
               Container(
-                height: Get.height,
-                width: Get.width,
+                height: size.height,
+                width: size.width,
                 decoration: BoxDecoration(
                   borderRadius: BorderRadius.only(
                     topLeft: Radius.circular(40),
@@ -95,7 +93,7 @@ class _SaveScreenState extends State<SaveScreen> {
                             fontSize: 54,
                             color: ColorResources.white4),
                       ),
-                      SizedBox(height: Get.height >= 876 ? 85 : 45),
+                      SizedBox(height: size.height >= 876 ? 85 : 45),
                       Row(
                         mainAxisAlignment: MainAxisAlignment.spaceBetween,
                         children: [
@@ -116,7 +114,7 @@ class _SaveScreenState extends State<SaveScreen> {
                           }),
                         ],
                       ),
-                      SizedBox(height: Get.height >= 876 ? 60 : 45),
+                      SizedBox(height: size.height >= 876 ? 60 : 45),
                       Row(
                         mainAxisAlignment: MainAxisAlignment.spaceBetween,
                         children: [
@@ -137,7 +135,7 @@ class _SaveScreenState extends State<SaveScreen> {
                           }),
                         ],
                       ),
-                      SizedBox(height: Get.height >= 876 ? 60 : 45),
+                      SizedBox(height: size.height >= 876 ? 60 : 45),
                       Row(
                         mainAxisAlignment: MainAxisAlignment.spaceBetween,
                         children: [
@@ -158,7 +156,7 @@ class _SaveScreenState extends State<SaveScreen> {
                           }),
                         ],
                       ),
-                      SizedBox(height: Get.height >= 876 ? 60 : 45),
+                      SizedBox(height: size.height >= 876 ? 60 : 45),
                       Row(
                         mainAxisAlignment: MainAxisAlignment.spaceBetween,
                         children: [
@@ -185,11 +183,10 @@ class _SaveScreenState extends State<SaveScreen> {
                           ),
                         ],
                       ),
-                      SizedBox(height: Get.height >= 876 ? 60 : 45),
+                      SizedBox(height: size.height >= 876 ? 60 : 45),
                       InkWell(
-                        onTap: () {
-                          Get.off(SaveAddMoneyDetailsScreen());
-                        },
+                        onTap: () =>
+                            context.goNamed(RouteName.saveDetailScreen),
                         child: Container(
                           height: 50,
                           width: 170,
