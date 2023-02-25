@@ -3,7 +3,6 @@ import 'package:go_router/go_router.dart';
 // import 'package:get/get.dart';
 import '../../colors/colors.dart';
 import '../../images/images.dart';
-import '../../routscreens/routwidget.dart';
 import '../../textfontfamily/textfontfamily.dart';
 
 import '../../routes/route_names.dart';
@@ -77,8 +76,8 @@ class CongratulationsScreen extends StatelessWidget {
               padding: const EdgeInsets.symmetric(horizontal: 15),
               child: InkWell(
                 onTap: () {
-                  selectedIndex = 0;
-                  context.goNamed(RouteName.buttombar);
+                  // selectedIndex = 0;
+                  context.goNamed(RouteName.homeScreen);
                   // Navigator.of(context, rootNavigator: true)
                   //     .pushReplacement(MaterialPageRoute(
                   //   builder: (context) => NavigationBarBottom(),

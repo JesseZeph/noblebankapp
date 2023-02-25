@@ -5,8 +5,12 @@ class RouteName {
   static const String signUpScreen = 'signUp';
   static const String logInScreen = 'logIn';
   static const String buttombar = 'buttombar';
-  static const String saveScreen = 'saveScreen';
-  static const String rewardScreen = 'rewardScreen';
+  static const String mainScreen = 'mainScreen';
+  static const String homeScreen = 'home';
+  static const String saveScreen = 'save';
+  static const String portfolioScreen = 'portfolio';
+  static const String rewardScreen = 'rewards';
+  static const String accountScreen = 'account';
   static const String saveDetailScreen = 'saveDetailScreen';
   static const String investMoneyScreen = 'investMoneyScreen';
   static const String emergencySavingDetailScreen = 'emergencySavingDetailScreen';

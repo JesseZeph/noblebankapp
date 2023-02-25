@@ -32,6 +32,7 @@ class MyBankApp extends ConsumerWidget {
       routeInformationParser: router.routeInformationParser,
       routeInformationProvider: router.routeInformationProvider,
       routerDelegate: router.routerDelegate,
+      // routerConfig: router,
       // home: SplashScreen(),
     );
   }

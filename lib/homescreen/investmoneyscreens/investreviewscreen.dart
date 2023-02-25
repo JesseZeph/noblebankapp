@@ -5,7 +5,6 @@ import 'package:go_router/go_router.dart';
 import '../../colors/colors.dart';
 import '../../images/images.dart';
 import '../../routes/route_names.dart';
-import '../../routscreens/routwidget.dart';
 import '../../textfontfamily/textfontfamily.dart';
 
 class InvestReviewScreen extends StatelessWidget {
@@ -48,8 +47,8 @@ class InvestReviewScreen extends StatelessWidget {
             children: [
               InkWell(
                 onTap: () {
-                  selectedIndex = 0;
-                  context.goNamed(RouteName.buttombar);
+                  // selectedIndex = 0;
+                  context.goNamed(RouteName.homeScreen);
                   // Navigator.of(context, rootNavigator: true)
                   //     .pushReplacement(MaterialPageRoute(
                   //   builder: (context) => NavigationBarBottom(),
@@ -133,13 +132,14 @@ class InvestReviewScreen extends StatelessWidget {
                     context: context,
                     barrierDismissible: true,
                     builder: (context) => AlertDialog(
-                      // title: "",
+                      title: Text(""),
                       titlePadding: EdgeInsets.zero,
                       contentPadding: EdgeInsets.zero,
                       backgroundColor: ColorResources.blue2,
                       content: Padding(
                         padding: const EdgeInsets.symmetric(horizontal: 25),
                         child: Column(
+                          mainAxisSize: MainAxisSize.min,
                           crossAxisAlignment: CrossAxisAlignment.start,
                           children: [
                             SizedBox(height: 10),

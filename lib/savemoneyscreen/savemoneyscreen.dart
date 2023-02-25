@@ -5,7 +5,6 @@ import 'package:go_router/go_router.dart';
 import '../colors/colors.dart';
 import '../images/images.dart';
 import '../routes/route_names.dart';
-import '../routscreens/routwidget.dart';
 import '../textfontfamily/textfontfamily.dart';
 
 class SaveScreen extends StatefulWidget {
@@ -45,8 +44,8 @@ class _SaveScreenState extends State<SaveScreen> {
             children: [
               InkWell(
                 onTap: () {
-                  selectedIndex = 0;
-                  context.pushNamed(RouteName.buttombar);
+                  // selectedIndex = 0;
+                  context.pushNamed(RouteName.homeScreen);
                 },
                 child: CircleAvatar(
                   radius: 20,

@@ -1,19 +1,21 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:go_router/go_router.dart';
 
 import '../colors/colors.dart';
 import '../images/images.dart';
 import '../routes/route_names.dart';
+import '../services/pref_service.dart';
 import '../textfontfamily/textfontfamily.dart';
 
-class OnBoardingScreen extends StatefulWidget {
+class OnBoardingScreen extends ConsumerStatefulWidget {
   OnBoardingScreen({Key? key}) : super(key: key);
 
   @override
   _OnBoardingScreenState createState() => _OnBoardingScreenState();
 }
 
-class _OnBoardingScreenState extends State<OnBoardingScreen> {
+class _OnBoardingScreenState extends ConsumerState<OnBoardingScreen> {
   late PageController _pageController;
   int index = 0;
   List pageviewlist = [
@@ -62,7 +64,9 @@ class _OnBoardingScreenState extends State<OnBoardingScreen> {
           Padding(
             padding: const EdgeInsets.only(top: 20, right: 20),
             child: InkWell(
-              onTap: () => context.goNamed(RouteName.welcomeScreen),
+              onTap: () => ref.read(prefServiceProvider).setOnboarding().then(
+                    (value) => context.goNamed(RouteName.welcomeScreen),
+                  ),
               child: Container(
                 height: 35,
                 width: 80,
@@ -167,7 +171,9 @@ class _OnBoardingScreenState extends State<OnBoardingScreen> {
             child: InkWell(
               onTap: () {
                 index == 2
-                    ? context.goNamed(RouteName.welcomeScreen)
+                    ? ref.read(prefServiceProvider).setOnboarding().then(
+                          (value) => context.goNamed(RouteName.welcomeScreen),
+                        )
                     : _pageController.nextPage(
                         duration: Duration(milliseconds: 300),
                         curve: Curves.ease,

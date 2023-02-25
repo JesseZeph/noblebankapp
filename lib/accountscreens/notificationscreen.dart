@@ -4,7 +4,6 @@ import 'package:go_router/go_router.dart';
 // import 'package:get/get.dart';
 import '../colors/colors.dart';
 import '../images/images.dart';
-import '../routscreens/routwidget.dart';
 import '../textfontfamily/textfontfamily.dart';
 
 import '../routes/route_names.dart';
@@ -60,8 +59,8 @@ class NotificationScreen extends StatelessWidget {
         elevation: 0,
         leading: InkWell(
             onTap: () {
-              selectedIndex = 4;
-              context.goNamed(RouteName.buttombar);
+              // selectedIndex = 4;
+              context.goNamed(RouteName.accountScreen);
               // Navigator.of(context, rootNavigator: true)
               //     .pushReplacement(MaterialPageRoute(
               //   builder: (context) => NavigationBarBottom(),

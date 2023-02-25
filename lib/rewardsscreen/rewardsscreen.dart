@@ -5,7 +5,6 @@ import 'package:go_router/go_router.dart';
 import '../colors/colors.dart';
 import '../images/images.dart';
 import '../routes/route_names.dart';
-import '../routscreens/routwidget.dart';
 import '../textfontfamily/textfontfamily.dart';
 
 class RewardsScreen extends StatelessWidget {
@@ -22,8 +21,8 @@ class RewardsScreen extends StatelessWidget {
         automaticallyImplyLeading: false,
         leading: InkWell(
           onTap: () {
-            selectedIndex = 0;
-            context.goNamed(RouteName.buttombar);
+            // selectedIndex = 0;
+            context.goNamed(RouteName.homeScreen);
           },
           child:
               Icon(Icons.arrow_back_ios, color: ColorResources.white, size: 15),

@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:go_router/go_router.dart';
 
@@ -9,66 +10,62 @@ import '../images/images.dart';
 import '../portfolioscreen/portfolioscreen.dart';
 import '../rewardsscreen/rewardsscreen.dart';
 import '../routes/route_names.dart';
-import '../routscreens/rout.dart';
 import '../savemoneyscreen/savemoneyscreen.dart';
 import '../textfontfamily/textfontfamily.dart';
 
-class NavigationBarBottom extends StatefulWidget {
+class MainScreen extends ConsumerStatefulWidget {
+  MainScreen({required String tab, Key? key})
+      : index = indexFrom(tab),
+        super(key: key);
+  final int index;
+
   @override
-  _NavigationBarBottomState createState() => _NavigationBarBottomState();
+  ConsumerState<ConsumerStatefulWidget> createState() => _MainScreenState();
+  static int indexFrom(String tab) {
+    switch (tab) {
+      case 'home':
+        return 0;
+      case 'save':
+        return 1;
+      case 'portfolio':
+        return 2;
+      case 'rewards':
+        return 3;
+      case 'account':
+        return 4;
+      default:
+        return 0;
+    }
+  }
 }
 
-int selectedIndex = 0;
+class _MainScreenState extends ConsumerState<MainScreen> {
+  late int _selectedIndex;
 
-class _NavigationBarBottomState extends State<NavigationBarBottom> {
-  Map<int, GlobalKey<NavigatorState>> navigatorKeys = {
-    0: GlobalKey(),
-    1: GlobalKey(),
-    2: GlobalKey(),
-    3: GlobalKey(),
-    4: GlobalKey(),
-  };
+  @override
+  void initState() {
+    super.initState();
+    _selectedIndex = widget.index;
+  }
 
-  test(testPage) => Navigator.push(
-      context,
-      MaterialPageRoute(
-        builder: (context) => testPage,
-      ));
+  @override
+  void didChangeDependencies() {
+    super.didChangeDependencies();
+    _selectedIndex = widget.index;
+  }
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      body: WillPopScope(
-        onWillPop: () async {
-          return !await Navigator.maybePop(
-              navigatorKeys[selectedIndex]!.currentState!.context);
-        },
-        child: IndexedStack(
-          index: selectedIndex,
-          children: <Widget>[
-            NavigatorPage(
-                child: Center(
-                  child: HomeScreen(),
-                ),
-                navigatorKey: navigatorKeys[0]),
-            NavigatorPage(
-              child: SaveScreen(),
-              navigatorKey: navigatorKeys[1],
-            ),
-            NavigatorPage(
-              child: PortFolioScreen(),
-              navigatorKey: navigatorKeys[2],
-            ),
-            NavigatorPage(
-              child: RewardsScreen(),
-              navigatorKey: navigatorKeys[3],
-            ),
-            NavigatorPage(
-              child: AccountScreen(),
-              navigatorKey: navigatorKeys[4],
-            ),
-          ],
-        ),
+      body: IndexedStack(
+        index: _selectedIndex,
+        children: [
+          Center(child: HomeScreen()),
+          SaveScreen(),
+          PortFolioScreen(),
+          RewardsScreen(),
+          AccountScreen(),
+        ],
       ),
       bottomNavigationBar: BottomNavigationBar(
         items: [
@@ -77,7 +74,7 @@ class _NavigationBarBottomState extends State<NavigationBarBottom> {
               padding: const EdgeInsets.all(10),
               child: SvgPicture.asset(
                 Images.home,
-                color: selectedIndex == 0
+                color: _selectedIndex == 0
                     ? ColorResources.red
                     : ColorResources.grey3,
               ),
@@ -89,7 +86,7 @@ class _NavigationBarBottomState extends State<NavigationBarBottom> {
               padding: const EdgeInsets.all(10),
               child: SvgPicture.asset(
                 Images.save,
-                color: selectedIndex == 1
+                color: _selectedIndex == 1
                     ? ColorResources.red
                     : ColorResources.grey3,
               ),
@@ -97,22 +94,23 @@ class _NavigationBarBottomState extends State<NavigationBarBottom> {
             label: "Save",
           ),
           BottomNavigationBarItem(
-              icon: Padding(
-                padding: const EdgeInsets.all(10),
-                child: SvgPicture.asset(
-                  Images.portfolio,
-                  color: selectedIndex == 2
-                      ? ColorResources.red
-                      : ColorResources.grey3,
-                ),
+            icon: Padding(
+              padding: const EdgeInsets.all(10),
+              child: SvgPicture.asset(
+                Images.portfolio,
+                color: _selectedIndex == 2
+                    ? ColorResources.red
+                    : ColorResources.grey3,
               ),
-              label: "Portfolio"),
+            ),
+            label: "Portfolio",
+          ),
           BottomNavigationBarItem(
             icon: Padding(
               padding: const EdgeInsets.all(10),
               child: SvgPicture.asset(
                 Images.rewards,
-                color: selectedIndex == 3
+                color: _selectedIndex == 3
                     ? ColorResources.red
                     : ColorResources.grey3,
               ),
@@ -124,7 +122,7 @@ class _NavigationBarBottomState extends State<NavigationBarBottom> {
               padding: const EdgeInsets.all(10),
               child: SvgPicture.asset(
                 Images.account,
-                color: selectedIndex == 4
+                color: _selectedIndex == 4
                     ? ColorResources.red
                     : ColorResources.grey3,
               ),
@@ -133,19 +131,29 @@ class _NavigationBarBottomState extends State<NavigationBarBottom> {
           ),
         ],
         type: BottomNavigationBarType.fixed,
-        currentIndex: selectedIndex,
+        currentIndex: _selectedIndex,
         unselectedItemColor: ColorResources.white3,
         selectedItemColor: ColorResources.red,
         onTap: (index) {
-          if (index == 1) {
-            context.goNamed(RouteName.saveScreen);
-          } else if (index == 3) {
-            context.goNamed(RouteName.rewardScreen);
+          setState(() => _selectedIndex = index);
+          switch (index) {
+            case 0:
+              context.goNamed(RouteName.homeScreen);
+              break;
+            case 1:
+              context.goNamed(RouteName.saveScreen);
+              break;
+            case 2:
+              context.goNamed(RouteName.portfolioScreen);
+              break;
+            case 3:
+              context.goNamed(RouteName.rewardScreen);
+              break;
+            case 4:
+              context.goNamed(RouteName.accountScreen);
+              break;
+            default:
           }
-
-          setState(() {
-            selectedIndex = index;
-          });
         },
         elevation: 30,
         backgroundColor: ColorResources.blue2,

@@ -5,7 +5,6 @@ import 'package:go_router/go_router.dart';
 import '../../colors/colors.dart';
 import '../../images/images.dart';
 import '../../routes/route_names.dart';
-import '../../routscreens/routwidget.dart';
 import '../../textfontfamily/textfontfamily.dart';
 
 class WithdrawsFaildScreen extends StatelessWidget {
@@ -57,8 +56,8 @@ class WithdrawsFaildScreen extends StatelessWidget {
               padding: const EdgeInsets.symmetric(horizontal: 15),
               child: InkWell(
                 onTap: () {
-                  selectedIndex = 0;
-                  context.goNamed(RouteName.buttombar);
+                  // selectedIndex = 0;
+                  context.goNamed(RouteName.homeScreen);
                   // Navigator.of(context, rootNavigator: true)
                   //     .pushReplacement(MaterialPageRoute(
                   //   builder: (context) => NavigationBarBottom(),

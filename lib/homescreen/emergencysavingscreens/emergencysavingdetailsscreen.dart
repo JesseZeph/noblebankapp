@@ -4,7 +4,6 @@ import 'package:go_router/go_router.dart';
 // import 'package:get/get.dart';
 import '../../colors/colors.dart';
 import '../../routes/route_names.dart';
-import '../../routscreens/routwidget.dart';
 import '../../textfontfamily/textfontfamily.dart';
 
 class EmergencySavingDetailScreen extends StatelessWidget {
@@ -88,8 +87,8 @@ class EmergencySavingDetailScreen extends StatelessWidget {
                 padding: EdgeInsets.only(left: 10),
                 child: InkWell(
                   onTap: () {
-                    selectedIndex = 0;
-            context.goNamed(RouteName.buttombar);
+                    // selectedIndex = 0;
+            context.goNamed(RouteName.homeScreen);
                     // Navigator.of(context, rootNavigator: true)
                     //     .pushReplacement(MaterialPageRoute(
                     //   builder: (context) => NavigationBarBottom(),
