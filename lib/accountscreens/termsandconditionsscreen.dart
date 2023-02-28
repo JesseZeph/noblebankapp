@@ -1,10 +1,7 @@
 import 'package:flutter/material.dart';
-import 'package:go_router/go_router.dart';
 // import 'package:get/get.dart';
 import '../colors/colors.dart';
 import '../textfontfamily/textfontfamily.dart';
-
-import '../routes/route_names.dart';
 
 class TermsAndConditions extends StatelessWidget {
   const TermsAndConditions({Key? key}) : super(key: key);
@@ -31,12 +28,7 @@ class TermsAndConditions extends StatelessWidget {
         elevation: 0,
         leading: InkWell(
           onTap: () {
-            // selectedIndex = 4;
-            context.goNamed(RouteName.accountScreen);
-            // Navigator.of(context, rootNavigator: true)
-            //     .pushReplacement(MaterialPageRoute(
-            //   builder: (context) => NavigationBarBottom(),
-            // ));
+            Navigator.of(context).pop();
           },
           child:
               Icon(Icons.arrow_back_ios, color: ColorResources.white, size: 15),
@@ -110,7 +102,7 @@ class TermsAndConditions extends StatelessWidget {
               mainAxisSize: MainAxisSize.min,
               children: [
                 InkWell(
-                  onTap: ()=> Navigator.of(context).pop(),
+                  onTap: () => Navigator.of(context).pop(),
                   child: Container(
                     height: 50,
                     width: size.width,
@@ -131,7 +123,7 @@ class TermsAndConditions extends StatelessWidget {
                 ),
                 SizedBox(height: 20),
                 InkWell(
-                  onTap: () =>Navigator.of(context).pop(),
+                  onTap: () => Navigator.of(context).pop(),
                   child: Container(
                     height: 50,
                     width: size.width,

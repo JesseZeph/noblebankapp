@@ -61,7 +61,7 @@ class HomeScreen extends ConsumerWidget {
                   ),
                 ),
                 data: (UserModel data) => Text(
-                  "Hello ${data.fullname!.first.toTitle},",
+                  "Hello ${data.fullname.first.toTitle},",
                   style: TextStyle(
                     fontFamily: TextFontFamily.helveticaNeueCyrRoman,
                     fontWeight: FontWeight.w500,

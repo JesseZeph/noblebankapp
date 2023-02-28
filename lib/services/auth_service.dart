@@ -29,20 +29,25 @@ class AuthService {
       final credential = await _firebaseAuth.createUserWithEmailAndPassword(
           email: email, password: password);
       final user = credential.user;
-      // if (user != null) {
-      // state = const RegisterStateSuccess();
-      user!.updateDisplayName(name);
-      // user.updatePhoneNumber(PhoneAuthCredential );
-      await _firestore.collection('Profiles').doc(user.uid).set({
-        'id': user.uid,
-        'accNo': accNo,
-        'fullname': name,
-        'profileImgUrl': null,
-        'phoneNumber': null,
-      });
-      log(UserModel(id: user.uid, fullname: name, accNo: accNo).id);
-      _isLoading = false;
-      // }
+      if (user != null) {
+        // state = const RegisterStateSuccess();
+        user.updateDisplayName(name);
+        // user.updatePhoneNumber(PhoneAuthCredential );
+        await _firestore.collection('Profiles').doc(user.uid).set({
+          'id': user.uid,
+          'accNo': accNo,
+          'fullname': name,
+          'profileImgUrl': null,
+          'phoneNumber': null,
+        });
+        await _firestore.collection('Accounts').doc(user.uid).set({
+          'savings': 0.0,
+          'investment': {},
+          'emergency': 0.0,
+        });
+        log(UserModel(id: user.uid, fullname: name, accNo: accNo).id);
+        _isLoading = false;
+      }
     } on FirebaseAuthException catch (e) {
       if (e.message!.contains('An internal error')) {
         _authErrorMsg = 'An internal error occurred.\nPlease try again';

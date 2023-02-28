@@ -30,12 +30,7 @@ class PrivacyPolicyScreen extends StatelessWidget {
         elevation: 0,
         leading: InkWell(
             onTap: () {
-              // selectedIndex = 4;
-              context.goNamed(RouteName.accountScreen);
-              // Navigator.of(context, rootNavigator: true)
-              //     .pushReplacement(MaterialPageRoute(
-              //   builder: (context) => NavigationBarBottom(),
-              // ));
+              Navigator.of(context).pop();
             },
             child: Icon(Icons.arrow_back_ios,
                 color: ColorResources.white, size: 15)),
