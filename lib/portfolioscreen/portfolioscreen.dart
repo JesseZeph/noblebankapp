@@ -1,3 +1,4 @@
+import 'dart:developer';
 import 'dart:math' as math show pi;
 
 import 'package:flutter/material.dart';
@@ -16,7 +17,6 @@ class PortFolioScreen extends ConsumerWidget {
   @override
   Widget build(BuildContext context, WidgetRef ref) {
     final accountDetails = ref.watch(accountDetailsProvider);
-    // final accountbal = accountDetails.value;
     return Scaffold(
       backgroundColor: ColorResources.backGroundColor,
       appBar: AppBar(
@@ -75,9 +75,11 @@ class PortFolioScreen extends ConsumerWidget {
                               ),
                             );
                           },
-                          data: (AccountModel data) {
+                          data: (AccountModel? data) {
                             return Text(
-                              data.totalAmount.addComma.addNairaSymbol,
+                              data != null
+                                  ? data.totalAmount.addComma.addNairaSymbol
+                                  : 'null',
                               style: TextStyle(
                                 color: ColorResources.white,
                                 fontSize: 25,
@@ -86,8 +88,9 @@ class PortFolioScreen extends ConsumerWidget {
                             );
                           },
                           error: (Object error, StackTrace stackTrace) {
+                            log(error.toString());
                             return Text(
-                              '....',
+                              error.toString(),
                               style: TextStyle(
                                 color: ColorResources.white,
                                 fontSize: 25,
@@ -157,12 +160,12 @@ class PortFolioScreen extends ConsumerWidget {
               SizedBox(height: 20),
               accountDetails.when(
                 loading: () => row("Savings balance", '...'),
-                data: (AccountModel data) => row(
+                data: (AccountModel? data) => row(
                   "Savings balance",
-                  data.savings.addComma.addNairaSymbol,
+                  data != null ? data.savings.addComma.addNairaSymbol : 'null',
                 ),
                 error: (Object error, StackTrace stackTrace) =>
-                    row("Savings balance", '....'),
+                    row("Savings balance", ''),
               ),
 
               SizedBox(height: 40),
@@ -175,9 +178,11 @@ class PortFolioScreen extends ConsumerWidget {
               SizedBox(height: 20),
               accountDetails.when(
                 loading: () => row("Investment balance", '...'),
-                data: (AccountModel data) => row(
+                data: (AccountModel? data) => row(
                   "Investment balance",
-                  data.totalInvestment.addComma.addNairaSymbol,
+                  data != null
+                      ? data.totalInvestment.addComma.addNairaSymbol
+                      : 'null',
                 ),
                 error: (Object error, StackTrace stackTrace) =>
                     row("Investment balance", '....'),
@@ -185,15 +190,18 @@ class PortFolioScreen extends ConsumerWidget {
               SizedBox(height: 8),
               accountDetails.when(
                 loading: () => SizedBox.shrink(),
-                data: (AccountModel data) {
-                  if (data.investment.isNotEmpty) {
+                data: (AccountModel? data) {
+                  if (data != null && data.investment.isNotEmpty) {
                     return ListView.separated(
                       primary: false,
+                      shrinkWrap: true,
                       physics: NeverScrollableScrollPhysics(),
                       itemCount: data.investment.length,
                       itemBuilder: (_, index) {
-                        final key = data.investment.keys.toList()[index];
-                        final value = data.investment.values.toList()[index];
+                        final key =
+                            data.investment.keys.toList()[index].toTitle;
+                        final num value =
+                            data.investment.values.toList()[index];
                         return row(
                           key,
                           value.addComma.addNairaSymbol,
@@ -226,9 +234,11 @@ class PortFolioScreen extends ConsumerWidget {
               SizedBox(height: 20),
               accountDetails.when(
                 loading: () => row("Total balance", "..."),
-                data: (AccountModel data) => row(
+                data: (AccountModel? data) => row(
                   "Total balance",
-                  data.totalAmount.addComma.addNairaSymbol,
+                  data != null
+                      ? data.totalAmount.addComma.addNairaSymbol
+                      : 'null',
                 ),
                 error: (Object error, StackTrace stackTrace) =>
                     row("Total balance", "...."),

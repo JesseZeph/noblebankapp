@@ -9,19 +9,26 @@ class AccountService {
   final User? _user = FirebaseAuth.instance.currentUser;
   final FirebaseFirestore _firestore = FirebaseFirestore.instance;
 
-  Future<AccountModel> accountDetails() async {
-    DocumentSnapshot ds =
-        await _firestore.collection('Accounts').doc(_user!.uid).get();
-    final AccountModel account = AccountModel(
-      savings: ds.get('savings'),
-      emergency: ds.get('emergency'),
-      investment: ds.get('investment'),
-    );
-    log('${account.totalAmount}');
-    return account;
+  Future<AccountModel?> accountDetails() async {
+    try {
+      log('geting acc details');
+      DocumentSnapshot ds =
+          await _firestore.collection('Accounts').doc(_user!.uid).get();
+      // log("eeee ${ds.get('savings')}");
+      final AccountModel account = AccountModel(
+        savings: ds.get('savings'),
+        emergency: ds.get('emergency'),
+        investment: ds.get('investment'),
+      );
+      // log('aaa ${account.totalAmount}');
+      return account;
+    } on FirebaseException catch (e) {
+      log(e.toString());
+      return null;
+    }
   }
 }
 
 final accountProvider = Provider<AccountService>((ref) => AccountService());
-final accountDetailsProvider = FutureProvider<AccountModel>(
+final accountDetailsProvider = FutureProvider.autoDispose<AccountModel?>(
     (ref) => ref.watch(accountProvider).accountDetails());
