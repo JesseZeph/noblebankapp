@@ -2,16 +2,19 @@ import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:go_router/go_router.dart';
-import '../extensions/on_string.dart';
 import 'package:shimmer/shimmer.dart';
 
 import '../colors/colors.dart';
+import '../extensions/on_num.dart';
+import '../extensions/on_string.dart';
 import '../homescreen/bottomsheetwidget/addmonybottomsheetwidget.dart';
 import '../homescreen/bottomsheetwidget/emergencysavemoneybottomsheetwidget.dart';
 import '../homescreen/bottomsheetwidget/withdrawmoneybottomsheetwidget.dart';
 import '../images/images.dart';
+import '../models/account_model.dart';
 import '../models/user_model.dart';
 import '../routes/route_names.dart';
+import '../services/account_service.dart';
 import '../services/user_services.dart';
 import '../textfontfamily/textfontfamily.dart';
 
@@ -30,6 +33,7 @@ class HomeScreen extends ConsumerWidget {
   @override
   Widget build(BuildContext context, WidgetRef ref) {
     final userDetails = ref.watch(userDetailProvider);
+    final accountDetails = ref.watch(accountDetailsProvider);
     final Size size = MediaQuery.of(context).size;
     return Scaffold(
       backgroundColor: ColorResources.backGroundColor,
@@ -56,7 +60,7 @@ class HomeScreen extends ConsumerWidget {
                   highlightColor: Colors.white,
                   child: Container(
                     color: ColorResources.grey,
-                    height: 36,
+                    height: 33,
                     width: 110,
                   ),
                 ),
@@ -115,12 +119,30 @@ class HomeScreen extends ConsumerWidget {
             //SizedBox(height: 25),
             Padding(
               padding: EdgeInsets.only(left: 15, right: 15),
-              child: Text(
-                "₦ 200,000",
-                style: TextStyle(
-                    fontFamily: TextFontFamily.helveticNeueCyrBold,
-                    fontSize: 40,
-                    color: ColorResources.white4),
+              child: accountDetails.when(
+                loading: () => Text(
+                  "...",
+                  style: TextStyle(
+                      fontFamily: TextFontFamily.helveticNeueCyrBold,
+                      fontSize: 40,
+                      color: ColorResources.white4),
+                ),
+                data: (AccountModel? data) => Text(
+                  data != null
+                      ? data.totalAmount.addComma.addNairaSymbol
+                      : 'null',
+                  style: TextStyle(
+                      fontFamily: TextFontFamily.helveticNeueCyrBold,
+                      fontSize: 40,
+                      color: ColorResources.white4),
+                ),
+                error: (Object error, StackTrace stackTrace) => Text(
+                  "....",
+                  style: TextStyle(
+                      fontFamily: TextFontFamily.helveticNeueCyrBold,
+                      fontSize: 40,
+                      color: ColorResources.white4),
+                ),
               ),
             ),
             //SizedBox(height: 25),

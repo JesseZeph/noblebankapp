@@ -137,7 +137,10 @@ class RouterNotifier extends ChangeNotifier {
     GoRoute(
       name: RouteName.emergencySavingDetailScreen,
       path: '/${RouteName.emergencySavingDetailScreen}',
-      builder: (context, state) => EmergencySavingDetailScreen(),
+      builder: (context, state) {
+        final number = state.queryParams['amount']!;
+        return EmergencySavingDetailScreen(amount: number);
+      },
     ),
     GoRoute(
       name: RouteName.withdrawDetailsScreen,

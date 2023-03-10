@@ -18,10 +18,10 @@ class AccountModel {
 
   num get totalAmount => totalInvestment + savings + emergency;
 
-  List<num> get percentages {
-    final num savingPercent = (savings / totalAmount) * 100;
-    final num invsetmentPercent = (totalInvestment / totalAmount) * 100;
-    final num emergencyPercent = (emergency / totalAmount) * 100;
+  List<double> get percentages {
+    final double savingPercent = (savings / totalAmount) * 100;
+    final double invsetmentPercent = (totalInvestment / totalAmount) * 100;
+    final double emergencyPercent = (emergency / totalAmount) * 100;
     return [savingPercent, invsetmentPercent, emergencyPercent];
   }
 }

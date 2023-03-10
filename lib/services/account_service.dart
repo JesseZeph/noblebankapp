@@ -20,7 +20,7 @@ class AccountService {
         emergency: ds.get('emergency'),
         investment: ds.get('investment'),
       );
-      // log('aaa ${account.totalAmount}');
+      log('done acc details');
       return account;
     } on FirebaseException catch (e) {
       log(e.toString());
@@ -30,5 +30,5 @@ class AccountService {
 }
 
 final accountProvider = Provider<AccountService>((ref) => AccountService());
-final accountDetailsProvider = FutureProvider.autoDispose<AccountModel?>(
+final accountDetailsProvider = FutureProvider<AccountModel?>(
     (ref) => ref.watch(accountProvider).accountDetails());

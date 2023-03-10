@@ -5,7 +5,6 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
-import '../models/user_model.dart';
 // import 'package:mybankapp/models/user_model.dart';
 
 class AuthService {
@@ -39,13 +38,13 @@ class AuthService {
           'fullname': name,
           'profileImgUrl': null,
           'phoneNumber': null,
+          'pin': 0000,
         });
         await _firestore.collection('Accounts').doc(user.uid).set({
           'savings': 0.0,
           'investment': {},
           'emergency': 0.0,
         });
-        log(UserModel(id: user.uid, fullname: name, accNo: accNo).id);
         _isLoading = false;
       }
     } on FirebaseAuthException catch (e) {

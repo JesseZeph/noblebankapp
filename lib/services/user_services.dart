@@ -30,8 +30,9 @@ class UserService {
       accNo: ds.get('accNo'),
       phoneNumber: ds.get('phoneNumber'),
       profileImgUrl: ds.get('profileImgUrl'),
+      pin: ds.get('pin'),
     );
-    log('${user.id}');
+    log(user.id);
     return user;
   }
 

@@ -1,10 +1,7 @@
 import 'package:flutter/material.dart';
-import 'package:go_router/go_router.dart';
 // import 'package:get/get.dart';
 import '../colors/colors.dart';
 import '../textfontfamily/textfontfamily.dart';
-
-import '../routes/route_names.dart';
 
 class PrivacyPolicyScreen extends StatelessWidget {
   const PrivacyPolicyScreen({Key? key}) : super(key: key);

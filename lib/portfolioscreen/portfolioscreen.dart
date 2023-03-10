@@ -224,8 +224,25 @@ class PortFolioScreen extends ConsumerWidget {
               // row("Agriculture", "₦6,000"),
               // SizedBox(height: 8),
               // row("Real Estate", "₦2,000"),
-              // SizedBox(height: 20),
-              // text1("Emergency funds"),
+              SizedBox(height: 20),
+              text1("Emergency funds"),
+              SizedBox(height: 20),
+              Divider(
+                thickness: 0.5,
+                color: ColorResources.blue1.withOpacity(0.6),
+              ),
+              SizedBox(height: 20),
+              accountDetails.when(
+                loading: () => row("c balance", '...'),
+                data: (AccountModel? data) => row(
+                  "Emergency balance",
+                  data != null
+                      ? data.emergency.addComma.addNairaSymbol
+                      : 'null',
+                ),
+                error: (Object error, StackTrace stackTrace) =>
+                    row("Emergency balance", '....'),
+              ),
               SizedBox(height: 20),
               Divider(
                 thickness: 0.5,
