@@ -9,7 +9,7 @@ final routerProvider = Provider<GoRouter>(
     final routerNotifier = RouterNotifier(ref);
     return GoRouter(
       initialLocation: '/${RouteName.splashScreen}',
-      debugLogDiagnostics: false,
+      debugLogDiagnostics: true,
       refreshListenable: routerNotifier,
       redirect: routerNotifier.redirectLogic,
       routes: routerNotifier.routes,

@@ -19,20 +19,6 @@ class _EmergencySaveAMoneyBottomSheetWidgetState
     extends State<EmergencySaveAMoneyBottomSheetWidget> {
   String number = "";
 
-  InkWell inkwell1(String text, Function() onTap) {
-    return InkWell(
-      onTap: onTap,
-      child: Text(
-        text,
-        style: TextStyle(
-            fontFamily: TextFontFamily.helveticaNeueCyrMedium,
-            fontSize: 24,
-            fontWeight: FontWeight.w500,
-            color: ColorResources.white),
-      ),
-    );
-  }
-
   @override
   Widget build(BuildContext context) {
     final Size size = MediaQuery.of(context).size;
@@ -180,8 +166,10 @@ class _EmergencySaveAMoneyBottomSheetWidgetState
                     ),
                     SizedBox(height: size.height >= 876 ? 60 : 45),
                     InkWell(
-                      onTap: () => context
-                          .goNamed(RouteName.emergencySavingDetailScreen),
+                      onTap: () => context.goNamed(
+                        RouteName.emergencySavingDetailScreen,
+                        queryParams: {'amount': number},
+                      ),
                       child: Container(
                         height: 50,
                         width: 170,
@@ -208,6 +196,20 @@ class _EmergencySaveAMoneyBottomSheetWidgetState
             ),
           ],
         ),
+      ),
+    );
+  }
+
+  InkWell inkwell1(String text, Function() onTap) {
+    return InkWell(
+      onTap: onTap,
+      child: Text(
+        text,
+        style: TextStyle(
+            fontFamily: TextFontFamily.helveticaNeueCyrMedium,
+            fontSize: 24,
+            fontWeight: FontWeight.w500,
+            color: ColorResources.white),
       ),
     );
   }

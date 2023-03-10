@@ -1,10 +1,7 @@
 import 'package:flutter/material.dart';
-import 'package:go_router/go_router.dart';
 // import 'package:get/get.dart';
 import '../colors/colors.dart';
 import '../textfontfamily/textfontfamily.dart';
-
-import '../routes/route_names.dart';
 
 class PrivacyPolicyScreen extends StatelessWidget {
   const PrivacyPolicyScreen({Key? key}) : super(key: key);
@@ -30,12 +27,7 @@ class PrivacyPolicyScreen extends StatelessWidget {
         elevation: 0,
         leading: InkWell(
             onTap: () {
-              // selectedIndex = 4;
-              context.goNamed(RouteName.accountScreen);
-              // Navigator.of(context, rootNavigator: true)
-              //     .pushReplacement(MaterialPageRoute(
-              //   builder: (context) => NavigationBarBottom(),
-              // ));
+              Navigator.of(context).pop();
             },
             child: Icon(Icons.arrow_back_ios,
                 color: ColorResources.white, size: 15)),

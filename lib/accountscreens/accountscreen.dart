@@ -139,7 +139,7 @@ class AccountScreen extends ConsumerWidget {
                           inkWell(
                             Images.notificationicon,
                             "Notification",
-                            () => context.goNamed(RouteName.notificationScreen),
+                            () => context.pushNamed(RouteName.notificationScreen),
                           ),
                           Divider(
                             thickness: 0.5,
@@ -149,7 +149,7 @@ class AccountScreen extends ConsumerWidget {
                             Images.privacypolicyicon,
                             "Privacy policy",
                             () =>
-                                context.goNamed(RouteName.privacyPolicyScreen),
+                                context.pushNamed(RouteName.privacyPolicyScreen),
                           ),
                           Divider(
                             thickness: 0.5,
@@ -158,7 +158,7 @@ class AccountScreen extends ConsumerWidget {
                           inkWell(
                             Images.termsandconditionsicon,
                             "Terms and conditions",
-                            () => context.goNamed(RouteName.termsAndConditions),
+                            () => context.pushNamed(RouteName.termsAndConditions),
                           ),
                           Divider(
                             thickness: 0.5,

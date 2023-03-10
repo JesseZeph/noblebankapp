@@ -1,12 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
-import 'package:go_router/go_router.dart';
 // import 'package:get/get.dart';
 import '../colors/colors.dart';
 import '../images/images.dart';
 import '../textfontfamily/textfontfamily.dart';
-
-import '../routes/route_names.dart';
 
 class NotificationScreen extends StatelessWidget {
   const NotificationScreen({Key? key}) : super(key: key);
@@ -58,16 +55,12 @@ class NotificationScreen extends StatelessWidget {
         backgroundColor: ColorResources.backGroundColor,
         elevation: 0,
         leading: InkWell(
-            onTap: () {
-              // selectedIndex = 4;
-              context.goNamed(RouteName.accountScreen);
-              // Navigator.of(context, rootNavigator: true)
-              //     .pushReplacement(MaterialPageRoute(
-              //   builder: (context) => NavigationBarBottom(),
-              // ));
-            },
-            child: Icon(Icons.arrow_back_ios,
-                color: ColorResources.white, size: 15)),
+          onTap: () {
+            Navigator.of(context).pop();
+          },
+          child:
+              Icon(Icons.arrow_back_ios, color: ColorResources.white, size: 15),
+        ),
         title: Text(
           "Notification",
           style: TextStyle(

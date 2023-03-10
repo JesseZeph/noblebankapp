@@ -9,69 +9,6 @@ import '../../textfontfamily/textfontfamily.dart';
 class SaveAddMoneyDetailsScreen extends StatelessWidget {
   const SaveAddMoneyDetailsScreen({Key? key}) : super(key: key);
 
-  Text text(String text) {
-    return Text(
-      text,
-      style: TextStyle(
-        fontSize: 15,
-        fontFamily: TextFontFamily.helveticaNeueCyrRoman,
-        color: ColorResources.white,
-      ),
-    );
-  }
-
-  Container textFormField(String hint) {
-    return Container(
-      color: ColorResources.grey1.withOpacity(0.05),
-      child: TextFormField(
-        style: TextStyle(
-          fontFamily: TextFontFamily.helveticaNeueCyrRoman,
-          fontSize: 13,
-          color: ColorResources.grey2,
-        ),
-        cursorColor: ColorResources.blue1,
-        decoration: InputDecoration(
-          fillColor: ColorResources.grey1.withOpacity(0.05),
-          contentPadding: EdgeInsets.symmetric(horizontal: 10),
-          hintText: hint,
-          hintStyle: TextStyle(
-            fontFamily: TextFontFamily.helveticaNeueCyrRoman,
-            fontSize: 13,
-            color: ColorResources.grey2,
-          ),
-          enabledBorder: OutlineInputBorder(
-            borderRadius: BorderRadius.circular(5),
-            borderSide: BorderSide(
-              width: 1,
-              color: ColorResources.blue1.withOpacity(0.6),
-            ),
-          ),
-          errorBorder: OutlineInputBorder(
-            borderRadius: BorderRadius.circular(5),
-            borderSide: BorderSide(
-              width: 1,
-              color: ColorResources.blue1.withOpacity(0.6),
-            ),
-          ),
-          focusedErrorBorder: OutlineInputBorder(
-            borderRadius: BorderRadius.circular(5),
-            borderSide: BorderSide(
-              width: 1,
-              color: ColorResources.blue1.withOpacity(0.6),
-            ),
-          ),
-          focusedBorder: OutlineInputBorder(
-            borderRadius: BorderRadius.circular(5),
-            borderSide: BorderSide(
-              width: 1,
-              color: ColorResources.blue1.withOpacity(0.6),
-            ),
-          ),
-        ),
-      ),
-    );
-  }
-
   @override
   Widget build(BuildContext context) {
     final Size size = MediaQuery.of(context).size;
@@ -168,7 +105,7 @@ class SaveAddMoneyDetailsScreen extends StatelessWidget {
               textFormField("****"),
               SizedBox(height: size.height >= 876 ? 280 : 150),
               InkWell(
-                onTap: () =>context.goNamed(RouteName.congratulationsScreen),
+                onTap: () => context.goNamed(RouteName.congratulationsScreen),
                 child: Container(
                   height: 50,
                   width: size.width,
@@ -188,6 +125,69 @@ class SaveAddMoneyDetailsScreen extends StatelessWidget {
                 ),
               ),
             ],
+          ),
+        ),
+      ),
+    );
+  }
+
+  Text text(String text) {
+    return Text(
+      text,
+      style: TextStyle(
+        fontSize: 15,
+        fontFamily: TextFontFamily.helveticaNeueCyrRoman,
+        color: ColorResources.white,
+      ),
+    );
+  }
+
+  Container textFormField(String hint) {
+    return Container(
+      color: ColorResources.grey1.withOpacity(0.05),
+      child: TextFormField(
+        style: TextStyle(
+          fontFamily: TextFontFamily.helveticaNeueCyrRoman,
+          fontSize: 13,
+          color: ColorResources.grey2,
+        ),
+        cursorColor: ColorResources.blue1,
+        decoration: InputDecoration(
+          fillColor: ColorResources.grey1.withOpacity(0.05),
+          contentPadding: EdgeInsets.symmetric(horizontal: 10),
+          hintText: hint,
+          hintStyle: TextStyle(
+            fontFamily: TextFontFamily.helveticaNeueCyrRoman,
+            fontSize: 13,
+            color: ColorResources.grey2,
+          ),
+          enabledBorder: OutlineInputBorder(
+            borderRadius: BorderRadius.circular(5),
+            borderSide: BorderSide(
+              width: 1,
+              color: ColorResources.blue1.withOpacity(0.6),
+            ),
+          ),
+          errorBorder: OutlineInputBorder(
+            borderRadius: BorderRadius.circular(5),
+            borderSide: BorderSide(
+              width: 1,
+              color: ColorResources.blue1.withOpacity(0.6),
+            ),
+          ),
+          focusedErrorBorder: OutlineInputBorder(
+            borderRadius: BorderRadius.circular(5),
+            borderSide: BorderSide(
+              width: 1,
+              color: ColorResources.blue1.withOpacity(0.6),
+            ),
+          ),
+          focusedBorder: OutlineInputBorder(
+            borderRadius: BorderRadius.circular(5),
+            borderSide: BorderSide(
+              width: 1,
+              color: ColorResources.blue1.withOpacity(0.6),
+            ),
           ),
         ),
       ),

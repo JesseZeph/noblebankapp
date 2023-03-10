@@ -44,8 +44,7 @@ class _SaveScreenState extends State<SaveScreen> {
             children: [
               InkWell(
                 onTap: () {
-                  // selectedIndex = 0;
-                  context.pushNamed(RouteName.homeScreen);
+                  context.goNamed(RouteName.homeScreen);
                 },
                 child: CircleAvatar(
                   radius: 20,
